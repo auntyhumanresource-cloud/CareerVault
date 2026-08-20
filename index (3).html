@@ -1,0 +1,1746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Career Vault — Powered by AuntyHR</title>
+<meta name="description" content="Career Vault — track your career, quantify every achievement, and turn your journal into a ready-to-use CV." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================================
+   Career Vault — LinkedIn exact palette
+   Primary  #0A66C2   Hover #004182   Tint #E8F3FF
+   App bg   #F4F2EE   Card #FFFFFF     Border rgba(0,0,0,.08)
+   Ink .9   Sub .6    Success #057642  Premium/achievement gold #E7A33E
+   ========================================================================= */
+:root{
+  --blue:#0A66C2; --blue-h:#004182; --blue-a:#09223b;
+  --blue-tint:#E8F3FF; --blue-tint2:#D0E8FF;
+  --bg:#F4F2EE; --card:#FFFFFF;
+  --ink:rgba(0,0,0,.9); --sub:rgba(0,0,0,.6); --faint:rgba(0,0,0,.45);
+  --bd:rgba(0,0,0,.08); --bd2:rgba(0,0,0,.15);
+  --green:#057642; --green-t:#DEF7EC;
+  --gold:#E7A33E; --gold-d:#915907; --gold-t:#FEF3D9;
+  --red:#B24020; --red-t:#FBE7E2;
+  --shadow:0 0 0 1px rgba(0,0,0,.08),0 2px 3px rgba(0,0,0,.06);
+  --shadow-lg:0 12px 40px rgba(0,0,0,.18);
+  --nav-h:52px; --side-w:250px; --maxw:1128px;
+  --r:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',-apple-system,system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45;-webkit-font-smoothing:antialiased}
+a{color:var(--blue);text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+img{max-width:100%;display:block}
+h1,h2,h3,h4{letter-spacing:-.01em;line-height:1.2}
+:focus-visible{outline:2.5px solid var(--blue);outline-offset:2px;border-radius:4px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
+.hidden{display:none!important}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:.9rem;
+  border-radius:999px;padding:9px 20px;transition:background .15s,box-shadow .15s,color .15s,border-color .15s;white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:0 0 auto}
+.btn:active{transform:translateY(.5px)}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-h)}
+.btn-sec{border:1.5px solid var(--blue);color:var(--blue);background:transparent}
+.btn-sec:hover{background:var(--blue-tint);border-width:2px;padding:8.5px 19.5px}
+.btn-ghost{color:var(--sub)}
+.btn-ghost:hover{background:rgba(0,0,0,.06);color:var(--ink)}
+.btn-plain{border:1.5px solid var(--bd2);color:var(--ink);background:#fff}
+.btn-plain:hover{background:rgba(0,0,0,.04)}
+.btn-danger{color:var(--red)}
+.btn-danger:hover{background:var(--red-t)}
+.btn-sm{padding:6px 14px;font-size:.83rem}
+.btn-block{width:100%}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+
+.chip{display:inline-flex;align-items:center;gap:5px;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;background:var(--blue-tint);color:var(--blue-h)}
+.chip.g{background:var(--green-t);color:var(--green)} .chip.gold{background:var(--gold-t);color:var(--gold-d)}
+.chip.r{background:var(--red-t);color:var(--red)} .chip.n{background:rgba(0,0,0,.06);color:var(--sub)}
+.card{background:var(--card);border-radius:var(--r);box-shadow:var(--shadow)}
+.divider{height:1px;background:var(--bd);margin:0}
+
+.avatar{border-radius:50%;display:grid;place-items:center;font-weight:700;color:#fff;
+  background:linear-gradient(135deg,#4593d6,var(--blue-h));flex:0 0 auto}
+.avatar.xs{width:28px;height:28px;font-size:.7rem}
+.avatar.sm{width:40px;height:40px;font-size:.9rem}
+.avatar.md{width:56px;height:56px;font-size:1.25rem}
+.avatar.lg{width:88px;height:88px;font-size:2rem;border:4px solid #fff}
+
+/* =========================================================================
+   AUTH SCREEN
+   ========================================================================= */
+.auth{min-height:100vh;display:flex;flex-direction:column;background:
+  radial-gradient(1200px 500px at 80% -10%,#e9f2fb,transparent),var(--bg)}
+.auth-top{display:flex;align-items:center;justify-content:space-between;padding:16px 6vw}
+.logo{display:flex;align-items:center;gap:9px}
+.logo-mark{width:34px;height:34px;border-radius:9px;background:var(--blue);display:grid;place-items:center;color:#fff;font-weight:800;font-size:1.05rem;box-shadow:0 3px 10px rgba(10,102,194,.4)}
+.logo-word{font-weight:800;font-size:1.15rem;color:var(--blue-h);letter-spacing:-.02em}
+.logo-word small{display:block;font-size:.6rem;font-weight:600;color:var(--sub);letter-spacing:.02em;margin-top:-2px}
+.auth-wrap{flex:1;display:grid;grid-template-columns:1.05fr .95fr;gap:40px;max-width:1080px;margin:0 auto;padding:10px 6vw 40px;align-items:center;width:100%}
+.auth-hero h1{font-size:2.6rem;font-weight:800;color:var(--blue-a);letter-spacing:-.03em;line-height:1.05}
+.auth-hero p{font-size:1.08rem;color:var(--sub);margin-top:16px;max-width:440px}
+.auth-points{margin-top:24px;display:flex;flex-direction:column;gap:12px}
+.auth-point{display:flex;gap:12px;align-items:center;font-size:.95rem;font-weight:500}
+.auth-point .ic{width:38px;height:38px;border-radius:10px;background:#fff;box-shadow:var(--shadow);display:grid;place-items:center;color:var(--blue);flex:0 0 auto}
+.auth-point .ic svg{width:20px;height:20px}
+.auth-card{background:#fff;border-radius:14px;box-shadow:var(--shadow-lg);padding:28px;max-width:410px;width:100%;justify-self:end}
+.auth-tabs{display:flex;background:var(--bg);border-radius:999px;padding:4px;margin-bottom:20px}
+.auth-tab{flex:1;padding:9px;border-radius:999px;font-weight:600;font-size:.9rem;color:var(--sub)}
+.auth-tab.active{background:#fff;color:var(--blue-h);box-shadow:var(--shadow)}
+.oauth{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.oauth-btn{display:flex;align-items:center;justify-content:center;gap:10px;border:1.5px solid var(--bd2);border-radius:999px;padding:10px;font-weight:600;font-size:.88rem;color:var(--ink);background:#fff}
+.oauth-btn:hover{background:rgba(0,0,0,.03);box-shadow:0 0 0 1px var(--bd2)}
+.oauth-btn svg,.oauth-btn img{width:19px;height:19px}
+.or{display:flex;align-items:center;gap:12px;color:var(--faint);font-size:.78rem;margin:6px 0 16px}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--bd)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label{font-size:.8rem;font-weight:600;color:var(--sub)}
+.field input,.field select,.field textarea{border:1px solid var(--bd2);border-radius:6px;padding:11px 12px;font-size:.92rem;font-family:inherit;color:var(--ink);background:#fff;width:100%}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-tint)}
+.field textarea{resize:vertical;min-height:70px}
+.field .err{color:var(--red);font-size:.75rem;display:none}
+.field.bad input,.field.bad select,.field.bad textarea{border-color:var(--red)}
+.field.bad .err{display:block}
+.auth-foot{text-align:center;font-size:.82rem;color:var(--sub);margin-top:14px}
+.demo-note{text-align:center;margin-top:14px}
+@media(max-width:860px){.auth-wrap{grid-template-columns:1fr;gap:24px}.auth-hero{text-align:center}.auth-hero p,.auth-points{margin-left:auto;margin-right:auto}.auth-card{justify-self:center}.auth-hero h1{font-size:2.1rem}}
+
+/* =========================================================================
+   ONBOARDING
+   ========================================================================= */
+.onb{min-height:100vh;display:grid;place-items:center;padding:24px;background:
+  radial-gradient(1000px 500px at 50% -10%,#e9f2fb,transparent),var(--bg)}
+.onb-card{background:#fff;border-radius:16px;box-shadow:var(--shadow-lg);width:100%;max-width:480px;overflow:hidden}
+.onb-head{height:6px;background:var(--bg)}
+.onb-prog{height:100%;background:var(--blue);width:33%;transition:width .3s}
+.onb-body{padding:32px}
+.onb-slide{text-align:center}
+.onb-ill{width:120px;height:120px;border-radius:24px;margin:0 auto 20px;display:grid;place-items:center;color:var(--blue);background:var(--blue-tint)}
+.onb-ill svg{width:60px;height:60px}
+.onb-slide h2{font-size:1.5rem;font-weight:800;color:var(--blue-a)}
+.onb-slide p{color:var(--sub);margin-top:10px;font-size:.98rem}
+.dots{display:flex;gap:7px;justify-content:center;margin:22px 0}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--bd2)}
+.dot.on{background:var(--blue);width:22px;border-radius:5px}
+.onb-nav{display:flex;gap:10px;margin-top:8px}
+
+/* =========================================================================
+   APP SHELL
+   ========================================================================= */
+.topbar{position:sticky;top:0;z-index:50;height:var(--nav-h);background:#fff;border-bottom:1px solid var(--bd);
+  display:flex;align-items:center;gap:14px;padding:0 18px}
+.topbar .logo-word{font-size:1.02rem}
+.hamburger{display:none}
+.top-search{flex:1;max-width:300px;display:flex;align-items:center;gap:8px;background:var(--bg);border-radius:6px;padding:8px 12px}
+.top-search svg{color:var(--faint);flex:0 0 auto}
+.top-search input{border:none;background:none;outline:none;width:100%;font-size:.88rem}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:6px}
+.icon-btn{width:40px;height:40px;border-radius:8px;display:grid;place-items:center;color:var(--sub);position:relative}
+.icon-btn:hover{background:rgba(0,0,0,.06);color:var(--ink)}
+.icon-btn svg{width:22px;height:22px}
+.dot-badge{position:absolute;top:7px;right:8px;width:8px;height:8px;border-radius:50%;background:var(--red);border:1.5px solid #fff}
+
+.layout{display:grid;grid-template-columns:var(--side-w) minmax(0,1fr);gap:0;max-width:var(--maxw);margin:0 auto;align-items:start}
+.sidebar{position:sticky;top:var(--nav-h);height:calc(100vh - var(--nav-h));padding:16px 12px;display:flex;flex-direction:column;gap:4px;overflow-y:auto}
+.side-profile{background:#fff;border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;margin-bottom:10px}
+.side-banner{height:44px;background:linear-gradient(120deg,#5aa0dd,var(--blue-h))}
+.side-pf-body{padding:0 14px 14px;text-align:center;margin-top:-26px}
+.side-pf-body .avatar{margin:0 auto 8px}
+.side-name{font-weight:700;font-size:.98rem}
+.side-head{font-size:.78rem;color:var(--sub);margin-top:1px}
+.side-score{display:flex;align-items:center;gap:10px;padding:11px 14px;border-top:1px solid var(--bd);cursor:pointer}
+.side-score:hover{background:var(--bg)}
+.ring{--v:0;width:38px;height:38px;border-radius:50%;flex:0 0 auto;
+  background:conic-gradient(var(--blue) calc(var(--v)*1%),var(--bd) 0);display:grid;place-items:center}
+.ring i{width:28px;height:28px;border-radius:50%;background:#fff;display:grid;place-items:center;font-size:.7rem;font-weight:800;color:var(--blue-h);font-style:normal}
+.side-score .t b{font-size:.82rem;display:block}
+.side-score .t small{font-size:.72rem;color:var(--sub)}
+
+.navlink{display:flex;align-items:center;gap:12px;padding:10px 12px;border-radius:8px;font-weight:600;font-size:.9rem;color:var(--sub);text-align:left;width:100%}
+.navlink svg{width:21px;height:21px;flex:0 0 auto}
+.navlink:hover{background:rgba(0,0,0,.05);color:var(--ink)}
+.navlink.active{background:var(--blue-tint);color:var(--blue-h)}
+.navlink .nl-badge{margin-left:auto;background:rgba(0,0,0,.08);color:var(--sub);font-size:.7rem;font-weight:700;border-radius:999px;padding:1px 8px}
+.navlink.active .nl-badge{background:#fff;color:var(--blue-h)}
+.side-foot{margin-top:auto;padding-top:8px}
+
+.main{padding:20px 18px 60px;min-width:0}
+.view{animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+/* mobile bottom nav + FAB are hidden on desktop */
+.botnav,.fab{display:none}
+
+/* responsive shell */
+@media(max-width:900px){
+  .layout{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;height:100vh;width:286px;background:var(--bg);z-index:80;
+    transform:translateX(-100%);transition:transform .25s;box-shadow:var(--shadow-lg);padding-top:16px;
+    padding-bottom:calc(16px + env(safe-area-inset-bottom))}
+  .sidebar.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:75;display:none}
+  .scrim.show{display:block}
+  .hamburger{display:none}          /* replaced by the bottom "More" tab */
+  .top-add{display:none}            /* replaced by the floating + button */
+  .top-search{max-width:none}
+  .main{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+
+  /* bottom tab bar */
+  .botnav{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;
+    border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -2px 12px rgba(0,0,0,.06)}
+  .botnav button{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;
+    padding:9px 0 7px;color:var(--sub);font-size:.63rem;font-weight:600;min-height:56px;position:relative}
+  .botnav button svg{width:23px;height:23px}
+  .botnav button.active{color:var(--blue)}
+  .botnav button.active::before{content:"";position:absolute;top:0;left:24%;right:24%;height:3px;border-radius:0 0 3px 3px;background:var(--blue)}
+
+  /* floating action button — the core "Add achievement" action */
+  .fab{display:grid;place-items:center;position:fixed;right:16px;bottom:calc(74px + env(safe-area-inset-bottom));
+    z-index:61;width:54px;height:54px;border-radius:17px;background:var(--blue);color:#fff;box-shadow:0 8px 22px rgba(10,102,194,.45)}
+  .fab svg{width:26px;height:26px}
+  .fab:active{transform:scale(.94)}
+
+  /* toasts sit above the bottom bar */
+  .toasts{bottom:calc(88px + env(safe-area-inset-bottom))}
+
+  /* modals become bottom sheets */
+  .overlay{align-items:flex-end;padding:0}
+  .modal,.modal.wide{max-width:100%;border-radius:18px 18px 0 0;margin:0;max-height:92vh;position:relative;
+    display:flex;flex-direction:column;animation:sheet .28s cubic-bezier(.32,.72,0,1)}
+  .modal::before{content:"";position:absolute;top:8px;left:50%;transform:translateX(-50%);width:38px;height:4px;border-radius:999px;background:var(--bd2);z-index:2}
+  .modal-head{padding-top:26px;flex:0 0 auto}
+  .modal-body{flex:1 1 auto;min-height:0;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(22px + env(safe-area-inset-bottom))}
+
+  /* readability tweaks */
+  .auth-hero h1 br{display:none}
+  .cv-doc{padding:22px 20px}
+  .page-head h1{font-size:1.3rem}
+}
+@keyframes sheet{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@media(max-width:560px){
+  .top-search{display:none}
+  .welcome{padding:20px 18px}
+  .welcome h2{font-size:1.2rem}
+  .stat .num{font-size:1.5rem}
+}
+
+/* =========================================================================
+   COMPONENTS — dashboard etc
+   ========================================================================= */
+.page-head{margin-bottom:16px}
+.page-head h1{font-size:1.5rem;font-weight:800;color:var(--blue-a)}
+.page-head p{color:var(--sub);font-size:.92rem;margin-top:3px}
+
+.welcome{background:linear-gradient(120deg,var(--blue-h),var(--blue));color:#fff;border-radius:12px;padding:22px 24px;position:relative;overflow:hidden}
+.welcome::after{content:"";position:absolute;right:-40px;top:-40px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.08)}
+.welcome h2{font-size:1.35rem;font-weight:800}
+.welcome p{opacity:.9;margin-top:6px;font-size:.95rem;max-width:560px}
+.welcome .btn{margin-top:16px}
+
+.stat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:16px}
+.stat{background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:16px}
+.stat .ic{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;margin-bottom:10px}
+.stat .ic svg{width:20px;height:20px}
+.stat .num{font-size:1.7rem;font-weight:800;line-height:1;color:var(--ink)}
+.stat .lbl{font-size:.8rem;color:var(--sub);margin-top:4px}
+@media(max-width:760px){.stat-grid{grid-template-columns:1fr 1fr}}
+
+.grid-2{display:grid;grid-template-columns:1.4fr 1fr;gap:16px;margin-top:16px;align-items:start}
+@media(max-width:820px){.grid-2{grid-template-columns:1fr}}
+
+.panel{background:#fff;border-radius:10px;box-shadow:var(--shadow)}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid var(--bd)}
+.panel-head h3{font-size:1rem}
+.panel-body{padding:8px 16px 14px}
+
+.qa-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.qa{display:flex;gap:11px;align-items:center;padding:14px;border:1px solid var(--bd);border-radius:10px;text-align:left;transition:.15s}
+.qa:hover{border-color:var(--blue);background:var(--blue-tint)}
+.qa .ic{width:40px;height:40px;border-radius:10px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center;flex:0 0 auto}
+.qa .ic svg{width:22px;height:22px}
+.qa b{font-size:.9rem;display:block}
+.qa small{font-size:.76rem;color:var(--sub)}
+
+.activity{display:flex;gap:12px;padding:11px 0;border-bottom:1px solid var(--bd)}
+.activity:last-child{border-bottom:0}
+.activity .ic{width:34px;height:34px;border-radius:8px;display:grid;place-items:center;flex:0 0 auto}
+.activity .ic svg{width:18px;height:18px}
+.activity .t{font-size:.86rem}
+.activity .t small{display:block;color:var(--faint);font-size:.72rem;margin-top:1px}
+
+/* journal */
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.toolbar .grow{flex:1;min-width:160px}
+.seg{display:flex;background:#fff;border:1px solid var(--bd);border-radius:999px;padding:3px;gap:2px;overflow-x:auto}
+.seg button{padding:6px 14px;border-radius:999px;font-size:.82rem;font-weight:600;color:var(--sub);white-space:nowrap}
+.seg button.on{background:var(--blue);color:#fff}
+.search-box{display:flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--bd2);border-radius:8px;padding:9px 12px}
+.search-box input{border:none;outline:none;width:100%;font-size:.88rem;background:none}
+.search-box svg{color:var(--faint)}
+
+.entry{background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:16px;margin-bottom:12px}
+.entry-top{display:flex;gap:10px;align-items:flex-start}
+.entry-top .avatar{margin-top:2px}
+.entry-meta{flex:1;min-width:0}
+.entry-meta .co{font-weight:700;font-size:.9rem}
+.entry-meta .rl{font-size:.78rem;color:var(--sub)}
+.entry-cat{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.entry-ai{background:var(--blue-tint);border-radius:8px;padding:12px 14px;margin:12px 0 8px;font-size:.92rem;position:relative}
+.entry-ai .tag{display:inline-flex;align-items:center;gap:5px;font-size:.7rem;font-weight:700;color:var(--blue-h);margin-bottom:4px}
+.entry-ai .tag svg{width:13px;height:13px}
+.entry-raw{font-size:.82rem;color:var(--faint);font-style:italic}
+.entry-q{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.qbadge{font-size:.72rem;font-weight:600;background:var(--bg);border:1px solid var(--bd);border-radius:6px;padding:3px 8px;color:var(--sub)}
+.entry-actions{display:flex;gap:4px;margin-top:10px;border-top:1px solid var(--bd);padding-top:8px}
+.entry-actions button{display:flex;align-items:center;gap:6px;font-size:.8rem;font-weight:600;color:var(--sub);padding:6px 10px;border-radius:6px}
+.entry-actions button:hover{background:var(--bg);color:var(--ink)}
+.entry-actions button.pinned{color:var(--gold-d)}
+.pin-flag{position:absolute;top:14px;right:14px;color:var(--gold)}
+
+.empty{text-align:center;padding:44px 20px;color:var(--sub)}
+.empty .ic{width:60px;height:60px;border-radius:16px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center;margin:0 auto 14px}
+.empty .ic svg{width:30px;height:30px}
+.empty h3{font-size:1.05rem;color:var(--ink)}
+.empty p{margin:6px auto 16px;max-width:340px;font-size:.9rem}
+
+/* CV vault */
+.cv-layout{display:grid;grid-template-columns:1fr 340px;gap:16px;align-items:start}
+@media(max-width:900px){.cv-layout{grid-template-columns:1fr}}
+.cv-doc{background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:34px 38px}
+.cv-name{font-size:1.7rem;font-weight:800;color:var(--blue-a)}
+.cv-contact{font-size:.82rem;color:var(--sub);margin-top:4px;display:flex;gap:10px;flex-wrap:wrap}
+.cv-sec{margin-top:22px}
+.cv-sec h4{font-size:.82rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);border-bottom:2px solid var(--blue-tint2);padding-bottom:5px;margin-bottom:10px}
+.cv-role{margin-bottom:14px}
+.cv-role .rt{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.cv-role .rt b{font-size:.95rem}
+.cv-role .rt span{font-size:.8rem;color:var(--sub)}
+.cv-role .co{font-size:.85rem;color:var(--blue-h);font-weight:600}
+.cv-bullets{margin:7px 0 0 18px}
+.cv-bullets li{font-size:.86rem;margin-bottom:5px}
+.cv-summary{font-size:.9rem;color:var(--ink)}
+.cv-skills{display:flex;flex-wrap:wrap;gap:7px}
+.cv-side .panel-body{font-size:.88rem;color:var(--sub)}
+.cv-side-row{display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--bd);align-items:flex-start}
+.cv-side-row:last-child{border-bottom:0}
+.cv-side-row .ic{color:var(--green);flex:0 0 auto;margin-top:2px}
+.cv-side-row .ic svg{width:18px;height:18px}
+.version{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}
+.version:last-child{border-bottom:0}
+.version .ic{width:34px;height:34px;border-radius:8px;background:var(--red-t);color:var(--red);display:grid;place-items:center;flex:0 0 auto}
+.version .ic svg{width:18px;height:18px}
+.version b{font-size:.86rem;display:block}
+.version small{font-size:.74rem;color:var(--sub)}
+
+/* customise / JD */
+.match-row{display:flex;gap:12px;align-items:flex-start;padding:12px;border:1px solid var(--bd);border-radius:9px;margin-bottom:10px;transition:.15s}
+.match-row.sel{border-color:var(--blue);background:var(--blue-tint)}
+.match-check{width:22px;height:22px;border-radius:6px;border:2px solid var(--bd2);flex:0 0 auto;display:grid;place-items:center;margin-top:2px}
+.match-row.sel .match-check{background:var(--blue);border-color:var(--blue);color:#fff}
+.match-check svg{width:14px;height:14px;opacity:0}
+.match-row.sel .match-check svg{opacity:1}
+.match-body{flex:1}
+.match-body p{font-size:.88rem}
+.match-score{margin-left:auto;flex:0 0 auto;text-align:center}
+.match-score b{font-size:1.05rem;font-weight:800;color:var(--green)}
+.match-score small{font-size:.66rem;color:var(--sub);display:block}
+.kw{display:inline-block;font-size:.7rem;font-weight:600;background:var(--gold-t);color:var(--gold-d);border-radius:5px;padding:2px 7px;margin:2px 4px 0 0}
+
+/* tracker */
+.kanban{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+@media(max-width:900px){.kanban{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.kanban{grid-template-columns:1fr}}
+.kcol{background:var(--bg);border-radius:10px;padding:10px;min-height:80px}
+.kcol h4{font-size:.78rem;font-weight:700;color:var(--sub);display:flex;justify-content:space-between;margin-bottom:8px;padding:2px 4px}
+.kcard{background:#fff;border-radius:8px;box-shadow:var(--shadow);padding:11px;margin-bottom:8px;cursor:pointer}
+.kcard b{font-size:.85rem;display:block}
+.kcard small{font-size:.74rem;color:var(--sub)}
+.trk-list .row{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--bd)}
+.trk-list .row:last-child{border-bottom:0}
+.trk-ic{width:38px;height:38px;border-radius:9px;display:grid;place-items:center;flex:0 0 auto;background:var(--blue-tint);color:var(--blue)}
+.trk-ic svg{width:20px;height:20px}
+.trk-main{flex:1;min-width:0}
+.trk-main b{font-size:.9rem;display:block}
+.trk-main small{font-size:.77rem;color:var(--sub)}
+.todo{display:flex;gap:11px;align-items:center;padding:11px 0;border-bottom:1px solid var(--bd)}
+.todo:last-child{border-bottom:0}
+.todo-box{width:22px;height:22px;border-radius:6px;border:2px solid var(--bd2);flex:0 0 auto;display:grid;place-items:center;color:#fff}
+.todo.done .todo-box{background:var(--green);border-color:var(--green)}
+.todo-box svg{width:13px;height:13px;opacity:0}.todo.done .todo-box svg{opacity:1}
+.todo.done .todo-txt{text-decoration:line-through;color:var(--faint)}
+.todo-txt{flex:1;font-size:.9rem}
+
+/* insights */
+.chart-card{background:#fff;border-radius:10px;box-shadow:var(--shadow);padding:16px}
+.chart-card h3{font-size:.95rem;margin-bottom:14px}
+.bars{display:flex;align-items:flex-end;gap:10px;height:150px}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;justify-content:flex-end;height:100%}
+.bar{width:100%;max-width:34px;background:linear-gradient(var(--blue),#5aa0dd);border-radius:6px 6px 0 0;min-height:3px;transition:height .6s}
+.bar-lbl{font-size:.7rem;color:var(--sub)}
+.bar-val{font-size:.72rem;font-weight:700;color:var(--blue-h)}
+.donut-wrap{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.legend{display:flex;flex-direction:column;gap:8px;font-size:.82rem}
+.legend .li{display:flex;align-items:center;gap:8px}
+.legend .sw{width:12px;height:12px;border-radius:3px;flex:0 0 auto}
+.nudge{display:flex;gap:12px;padding:13px;border:1px solid var(--bd);border-radius:10px;margin-bottom:10px;background:linear-gradient(120deg,var(--blue-tint),#fff)}
+.nudge .ic{width:36px;height:36px;border-radius:9px;background:#fff;box-shadow:var(--shadow);color:var(--blue);display:grid;place-items:center;flex:0 0 auto}
+.nudge .ic svg{width:19px;height:19px}
+.nudge p{font-size:.88rem}
+.nudge small{color:var(--sub);font-size:.78rem}
+
+/* profile */
+.pf-hero{background:#fff;border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.pf-banner{height:100px;background:linear-gradient(120deg,#5aa0dd,var(--blue-h))}
+.pf-body{padding:0 22px 20px;margin-top:-40px}
+.pf-row{display:flex;gap:16px;align-items:flex-end;flex-wrap:wrap}
+.pf-row .grow{flex:1;min-width:200px}
+.pf-name{font-size:1.5rem;font-weight:800;margin-top:8px}
+.pf-head{color:var(--sub);font-size:.95rem}
+.pf-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.82rem;color:var(--sub);margin-top:6px}
+.pf-meta span{display:flex;align-items:center;gap:5px}
+.pf-meta svg{width:15px;height:15px}
+.skill{display:inline-flex;align-items:center;gap:6px;background:var(--bg);border:1px solid var(--bd);border-radius:999px;padding:6px 12px;font-size:.82rem;font-weight:600;margin:0 6px 6px 0}
+.skill button{color:var(--faint);display:grid;place-items:center}
+.skill button:hover{color:var(--red)}
+.exp{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--bd)}
+.exp:last-child{border-bottom:0}
+.exp .ic{width:44px;height:44px;border-radius:9px;background:var(--blue-tint);color:var(--blue);display:grid;place-items:center;flex:0 0 auto;font-weight:800}
+.exp b{font-size:.94rem;display:block}
+.exp .co{font-size:.85rem;color:var(--blue-h);font-weight:600}
+.exp small{font-size:.78rem;color:var(--sub)}
+.toggle{width:44px;height:26px;border-radius:999px;background:var(--bd2);position:relative;transition:.2s;flex:0 0 auto}
+.toggle.on{background:var(--blue)}
+.toggle i{position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+.toggle.on i{left:21px}
+
+/* community + learn */
+.course{background:#fff;border-radius:10px;box-shadow:var(--shadow);overflow:hidden}
+.course-top{height:84px;display:grid;place-items:center;color:#fff;font-weight:800;background:linear-gradient(120deg,var(--blue),var(--blue-h));position:relative}
+.course-top .len{position:absolute;bottom:8px;right:10px;background:rgba(0,0,0,.35);color:#fff;font-size:.68rem;font-weight:600;padding:2px 8px;border-radius:999px}
+.course-b{padding:13px}
+.course-b h4{font-size:.92rem}
+.course-b p{font-size:.78rem;color:var(--sub);margin:4px 0 10px}
+.ref-box{display:flex;gap:10px;align-items:center;background:var(--bg);border:1px dashed var(--bd2);border-radius:10px;padding:12px 14px}
+.ref-code{flex:1;font-family:ui-monospace,monospace;font-weight:700;letter-spacing:.05em;color:var(--blue-h)}
+.challenge{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--bd)}
+.challenge:last-child{border-bottom:0}
+.challenge .ic{width:40px;height:40px;border-radius:10px;background:var(--gold-t);color:var(--gold-d);display:grid;place-items:center;flex:0 0 auto}
+.challenge .ic svg{width:20px;height:20px}
+.progress-bar{height:6px;border-radius:999px;background:var(--bd);overflow:hidden;margin-top:6px}
+.progress-bar i{display:block;height:100%;background:var(--blue);border-radius:999px}
+
+/* =========================================================================
+   MODAL / TOAST
+   ========================================================================= */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(2px);z-index:100;display:none;
+  align-items:flex-start;justify-content:center;padding:26px 16px;overflow-y:auto}
+.overlay.open{display:flex}
+.modal{background:#fff;border-radius:14px;width:100%;max-width:540px;box-shadow:var(--shadow-lg);margin:auto;animation:rise .2s ease;overflow:hidden}
+.modal.wide{max-width:720px}
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;padding:18px 20px 4px}
+.modal-head h2{font-size:1.2rem;color:var(--blue-a)}
+.modal-head .sub{font-size:.84rem;color:var(--sub);margin-top:2px}
+.mx{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;color:var(--sub);flex:0 0 auto}
+.mx:hover{background:var(--bg);color:var(--ink)}
+.modal-body{padding:14px 20px 20px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:480px){.row2{grid-template-columns:1fr}}
+.quant-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:var(--bg);border-radius:10px;padding:12px;margin-bottom:14px}
+.quant-grid .field{margin-bottom:0}
+.quant-grid .field input{padding:8px 10px;font-size:.85rem}
+.ai-preview{background:var(--blue-tint);border-radius:10px;padding:14px;margin-top:6px}
+.ai-preview .tag{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;color:var(--blue-h);margin-bottom:8px}
+.ai-preview .tag svg{width:14px;height:14px}
+.ai-preview textarea{width:100%;border:1px solid var(--blue-tint2);border-radius:8px;padding:10px;font-family:inherit;font-size:.92rem;background:#fff;resize:vertical;min-height:76px}
+.success{text-align:center;padding:26px 22px}
+.success .ic{width:64px;height:64px;border-radius:50%;background:var(--green-t);color:var(--green);display:grid;place-items:center;margin:0 auto 14px}
+.success .ic svg{width:34px;height:34px}
+.success h2{font-size:1.3rem}
+.success p{color:var(--sub);max-width:360px;margin:6px auto 18px;font-size:.92rem}
+
+.toasts{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:130;display:flex;flex-direction:column;gap:8px;align-items:center}
+.toast{background:#000000e6;color:#fff;padding:11px 18px;border-radius:8px;font-size:.86rem;font-weight:600;box-shadow:var(--shadow-lg);display:flex;gap:9px;align-items:center;max-width:90vw}
+.toast svg{width:18px;height:18px;color:#7fc4ff;flex:0 0 auto}
+
+.spin{width:34px;height:34px;border:3px solid var(--blue-tint2);border-top-color:var(--blue);border-radius:50%;animation:sp .7s linear infinite;margin:16px auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+@media print{
+  body *{visibility:hidden}
+  #printArea,#printArea *{visibility:visible}
+  #printArea{position:absolute;left:0;top:0;width:100%;padding:0}
+  .cv-doc{box-shadow:none}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+
+<!-- ================= AUTH ================= -->
+<div id="auth" class="auth">
+  <div class="auth-top">
+    <div class="logo"><div class="logo-mark">CV</div><div class="logo-word">Career Vault<small>Powered by AuntyHR</small></div></div>
+    <a href="#" onclick="setAuthTab('login');return false" style="font-weight:600;font-size:.9rem">Sign in</a>
+  </div>
+  <div class="auth-wrap">
+    <div class="auth-hero">
+      <h1>Every achievement,<br>captured. Every<br>opportunity, closer.</h1>
+      <p>Career Vault is your professional diary, live CV builder and job-application command centre — in one place.</p>
+      <div class="auth-points">
+        <div class="auth-point"><span class="ic" id="ic-a1"></span> Track your career journey as it happens</div>
+        <div class="auth-point"><span class="ic" id="ic-a2"></span> Turn plain notes into measurable, CV-ready wins</div>
+        <div class="auth-point"><span class="ic" id="ic-a3"></span> Generate and tailor CVs for every application</div>
+      </div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-tabs">
+        <button class="auth-tab active" id="tab-signup" onclick="setAuthTab('signup')">Sign up</button>
+        <button class="auth-tab" id="tab-login" onclick="setAuthTab('login')">Log in</button>
+      </div>
+      <div class="oauth">
+        <button class="oauth-btn" onclick="oauth('Google')"><span id="ic-google"></span> Continue with Google</button>
+        <button class="oauth-btn" onclick="oauth('LinkedIn')"><span id="ic-li"></span> Continue with LinkedIn</button>
+      </div>
+      <div class="or">or</div>
+      <form id="authForm" onsubmit="return doAuth(event)" novalidate>
+        <div class="field" id="f-name"><label>Full name</label><input id="in-name" placeholder="e.g. Tobi Adeyemi" autocomplete="name"><span class="err">Please enter your name.</span></div>
+        <div class="field" id="f-email"><label>Email</label><input id="in-email" type="email" placeholder="you@email.com" autocomplete="email"><span class="err">Enter a valid email.</span></div>
+        <div class="field" id="f-pass"><label>Password</label><input id="in-pass" type="password" placeholder="At least 6 characters" autocomplete="current-password"><span class="err">Password must be 6+ characters.</span></div>
+        <button class="btn btn-primary btn-block" type="submit" id="authSubmit">Agree &amp; join</button>
+      </form>
+      <div class="auth-foot" id="authFoot">Already on Career Vault? <a href="#" onclick="setAuthTab('login');return false">Log in</a></div>
+      <div class="demo-note"><div class="or">or</div><button class="btn btn-plain btn-block" onclick="tryDemo()">Explore a demo account</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= ONBOARDING ================= -->
+<div id="onboard" class="onb hidden">
+  <div class="onb-card">
+    <div class="onb-head"><div class="onb-prog" id="onbProg"></div></div>
+    <div class="onb-body" id="onbBody"></div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="app" class="hidden">
+  <header class="topbar">
+    <button class="icon-btn hamburger" onclick="toggleSidebar()" aria-label="Menu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+    <div class="logo"><div class="logo-mark">CV</div><div class="logo-word">Career Vault</div></div>
+    <label class="top-search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="topSearch" placeholder="Search your journal…" onkeydown="if(event.key==='Enter'){go('journal');document.getElementById('jSearch')&&(document.getElementById('jSearch').value=this.value,paintEntries())}"></label>
+    <div class="top-actions">
+      <button class="btn btn-primary btn-sm top-add" onclick="openAchievement()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> Add achievement</button>
+      <button class="icon-btn" onclick="toast('No new notifications')" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="dot-badge"></span></button>
+      <button class="icon-btn" onclick="go('profile')" aria-label="Profile"><span class="avatar xs" id="topAvatar">U</span></button>
+    </div>
+  </header>
+
+  <div class="scrim" id="scrim" onclick="toggleSidebar()"></div>
+  <div class="layout">
+    <aside class="sidebar" id="sidebar">
+      <div class="side-profile">
+        <div class="side-banner"></div>
+        <div class="side-pf-body">
+          <div class="avatar md" id="sideAvatar">U</div>
+          <div class="side-name" id="sideName">User</div>
+          <div class="side-head" id="sideHead">Professional</div>
+        </div>
+        <button class="side-score" onclick="go('insights')">
+          <div class="ring" id="scoreRing"><i id="scoreVal">0</i></div>
+          <div class="t"><b>Career Progress Score</b><small>Keep logging to grow it</small></div>
+        </button>
+      </div>
+
+      <button class="navlink active" data-v="dashboard" onclick="go('dashboard')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg> Dashboard</button>
+      <button class="navlink" data-v="journal" onclick="go('journal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg> Career Journal <span class="nl-badge" id="nb-journal">0</span></button>
+      <button class="navlink" data-v="cv" onclick="go('cv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l5 5v13H6z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h6"/></svg> CV Vault</button>
+      <button class="navlink" data-v="customise" onclick="go('customise')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/><circle cx="12" cy="12" r="3"/></svg> Customise CV</button>
+      <button class="navlink" data-v="tracker" onclick="go('tracker')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m8 11 2 2 4-4"/></svg> Tracker <span class="nl-badge" id="nb-tracker">0</span></button>
+      <button class="navlink" data-v="insights" onclick="go('insights')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 4-6"/></svg> Insights</button>
+      <button class="navlink" data-v="learn" onclick="go('learn')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m2 8 10-4 10 4-10 4z"/><path d="M6 10v5c0 1.4 3 3 6 3s6-1.6 6-3v-5"/></svg> Learn</button>
+      <button class="navlink" data-v="community" onclick="go('community')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-5 7-5s7 1.7 7 5"/><circle cx="18" cy="9" r="2.2"/><path d="M17 15c3 .4 5 2 5 5"/></svg> Community</button>
+      <button class="navlink" data-v="profile" onclick="go('profile')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.5-6 8-6s8 2 8 6"/></svg> Profile</button>
+
+      <div class="side-foot">
+        <button class="navlink" onclick="logout()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="m16 17 5-5-5-5M21 12H9"/></svg> Log out</button>
+      </div>
+    </aside>
+
+    <main class="main"><div id="view" class="view"></div></main>
+  </div>
+
+  <!-- floating action button (mobile) -->
+  <button class="fab" onclick="openAchievement()" aria-label="Add achievement"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></button>
+
+  <!-- bottom tab bar (mobile) -->
+  <nav class="botnav" id="botnav" aria-label="Primary">
+    <button data-v="dashboard" onclick="go('dashboard')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></svg><span>Home</span></button>
+    <button data-v="journal" onclick="go('journal')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/></svg><span>Journal</span></button>
+    <button data-v="cv" onclick="go('cv')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l5 5v13H6z"/><path d="M14 3v5h5"/></svg><span>CV Vault</span></button>
+    <button data-v="tracker" onclick="go('tracker')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m8 11 2 2 4-4"/></svg><span>Tracker</span></button>
+    <button onclick="toggleSidebar()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg><span>More</span></button>
+  </nav>
+</div>
+
+<!-- modal + toast host -->
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()"><div class="modal" id="modal" role="dialog" aria-modal="true"></div></div>
+<div class="toasts" id="toasts"></div>
+<div id="printArea" style="display:none"></div>
+
+<script>
+/* =========================================================================
+   ICONS (single-quoted JS strings with double-quoted attrs — safe in templates)
+   ========================================================================= */
+const P={
+  spark:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/>',
+  check:'<path d="m5 12 5 5 9-11"/>',
+  book:'<path d="M4 5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-2z"/><path d="M8 3v18"/>',
+  doc:'<path d="M6 3h9l5 5v13H6z"/><path d="M14 3v5h5"/>',
+  target:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/>',
+  chart:'<path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 4-6"/>',
+  brief:'<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>',
+  award:'<circle cx="12" cy="8" r="5"/><path d="m9 13-1 8 4-2 4 2-1-8"/>',
+  cvgen:'<path d="M6 3h9l5 5v13H6z"/><path d="M14 3v5h5"/><path d="m9 15 2 2 4-4"/>',
+  bulb:'<path d="M9 18h6M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.3 1 2.1V17h6v-.2c0-.8.4-1.6 1-2.1A7 7 0 0 0 12 2z"/>',
+  pin:'<path d="M12 17v5M9 3h6l-1 6 3 3H7l3-3z"/>',
+  edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2 2 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+  trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>',
+  dl:'<path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M4 19h16"/>',
+  x:'<path d="M6 6l12 12M18 6 6 18"/>',
+  cal:'<rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',
+  cap:'<path d="m2 8 10-4 10 4-10 4z"/><path d="M6 10v5c0 1.4 3 3 6 3s6-1.6 6-3v-5"/>',
+  fire:'<path d="M12 3c1 3-1 4-1 6a3 3 0 0 0 6 0c0 4-2 6-2 6a5 5 0 1 1-8-4c2-2 5-4 5-8z"/>',
+  play:'<circle cx="12" cy="12" r="9"/><path d="m10 9 5 3-5 3z" fill="currentColor"/>',
+  users:'<circle cx="9" cy="8" r="3"/><path d="M2 20c0-3.3 3-5 7-5s7 1.7 7 5"/>',
+  loc:'<path d="M12 21s7-6.2 7-11a7 7 0 1 0-14 0c0 4.8 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/>',
+  copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
+};
+const ic=(n,cls='')=>`<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${P[n]}</svg>`;
+function paintStaticIcons(){
+  document.getElementById('ic-a1').innerHTML=ic('book');
+  document.getElementById('ic-a2').innerHTML=ic('spark');
+  document.getElementById('ic-a3').innerHTML=ic('doc');
+  document.getElementById('ic-google').innerHTML='<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M22 12.2c0-.7-.1-1.4-.2-2H12v3.8h5.6a4.8 4.8 0 0 1-2 3.2v2.6h3.3c1.9-1.8 3-4.4 3-7.6z"/><path fill="#34A853" d="M12 22c2.7 0 5-.9 6.6-2.4l-3.3-2.6c-.9.6-2 1-3.3 1a5.7 5.7 0 0 1-5.4-4H3.2v2.6A10 10 0 0 0 12 22z"/><path fill="#FBBC05" d="M6.6 14a6 6 0 0 1 0-3.8V7.6H3.2a10 10 0 0 0 0 8.9z"/><path fill="#EA4335" d="M12 6.4c1.5 0 2.8.5 3.8 1.5l2.9-2.9A10 10 0 0 0 3.2 7.6L6.6 10c.8-2.3 3-3.6 5.4-3.6z"/></svg>';
+  document.getElementById('ic-li').innerHTML='<svg viewBox="0 0 24 24"><rect width="24" height="24" rx="4" fill="#0A66C2"/><path fill="#fff" d="M7.2 9.5H4.6V19h2.6zM5.9 8.3a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3zM19.4 19h-2.6v-4.6c0-1.1-.4-1.9-1.4-1.9-.8 0-1.2.5-1.4 1v5.5H11.4V9.5H14v1.3c.4-.6 1.1-1.5 2.7-1.5 2 0 2.7 1.3 2.7 3.4z"/></svg>';
+}
+
+/* =========================================================================
+   STATE
+   ========================================================================= */
+const CATS=['Weekly Achievement','Monthly Milestone','Project','Training','Certification','Event'];
+const JOB_STATUS=['Applied','Interview Scheduled','Offer Received','Rejected','Withdrawn'];
+const PROMPTS=[
+  'Small logs compound into a standout CV. What did you move forward today?',
+  'Your future self is reading this CV. Give them something to work with.',
+  'Every quantified win is a line a recruiter cannot ignore.',
+  'Progress you do not record is progress you cannot leverage. Log one thing.',
+];
+let accounts=[];
+let U=null;
+let uid=1;
+const nid=()=>uid++;
+
+function blankUser(name,email){
+  return {name,email,profession:'',industry:'',country:'',bio:'',public:false,invited:0,
+    skills:[], experiences:[], journal:[],
+    trackers:{jobs:[],certs:[],learning:[],interviews:[],todos:[]},
+    cvVersions:[], cvGenerated:0,
+    referral:'CV-'+Math.random().toString(36).slice(2,7).toUpperCase(),
+    activity:[]};
+}
+function initials(s){return (s||'U').split(' ').filter(Boolean).slice(0,2).map(w=>w[0].toUpperCase()).join('')||'U';}
+
+/* =========================================================================
+   PERSISTENCE (localStorage) — degrades gracefully where storage is blocked
+   (e.g. the sandboxed in-app preview). Works when the file is deployed/opened
+   locally. Each account keeps its own saved Vault; sessions survive refresh.
+   ========================================================================= */
+const LS={accounts:'cv_accounts',users:'cv_users',session:'cv_session',uid:'cv_uid'};
+let usersMap={};              // email -> full user object
+let storageOK=true;           // flips false if localStorage throws
+function persist(){
+  try{
+    if(U)usersMap[U.email]=U;
+    localStorage.setItem(LS.accounts,JSON.stringify(accounts));
+    localStorage.setItem(LS.users,JSON.stringify(usersMap));
+    localStorage.setItem(LS.session,U?U.email:'');
+    localStorage.setItem(LS.uid,String(uid));
+  }catch(e){storageOK=false;}
+}
+function loadState(){
+  try{
+    accounts=JSON.parse(localStorage.getItem(LS.accounts)||'[]');
+    usersMap=JSON.parse(localStorage.getItem(LS.users)||'{}');
+    uid=parseInt(localStorage.getItem(LS.uid)||'1')||1;
+    return localStorage.getItem(LS.session)||'';
+  }catch(e){storageOK=false;return '';}
+}
+function wipeSession(){try{localStorage.setItem(LS.session,'');}catch(e){}}
+
+/* =========================================================================
+   AI CONFIG — the flagship articulation calls a Claude model, with the
+   deterministic engine as an automatic fallback if the call is unavailable.
+   To go live in production: point `endpoint` at your own backend proxy that
+   injects the Anthropic API key server-side and forwards to /v1/messages.
+   Never put an API key in this file.
+   ========================================================================= */
+const AI_CONFIG={enabled:true,endpoint:'https://api.anthropic.com/v1/messages',model:'claude-sonnet-4-6'};
+
+/* =========================================================================
+   AI ARTICULATION (deterministic stand-in; real build calls Claude API)
+   ========================================================================= */
+const WEAK={'was responsible for':'Owned','responsible for':'Owned','worked on':'Drove','helped with':'Supported',
+  'helped':'Supported','did':'Delivered','made':'Created','handled':'Managed','took part in':'Contributed to',
+  'participated in':'Contributed to','led':'Led','managed':'Managed','ran':'Ran','organized':'Organised',
+  'organised':'Organised','built':'Built','created':'Created','set up':'Established','wrote':'Authored',
+  'planned':'Planned','fixed':'Resolved','improved':'Improved'};
+const IMPACT={
+  'Project':'improving delivery speed and cross-team alignment',
+  'Certification':'strengthening core professional expertise',
+  'Training':'building capability applied directly to the role',
+  'Event':'expanding professional network and visibility',
+  'Monthly Milestone':'contributing to team and business goals',
+  'Weekly Achievement':'keeping momentum on key priorities',
+};
+function articulate(raw,q,role){
+  let t=(raw||'').trim().replace(/\s+/g,' ').replace(/[.]+$/,'');
+  t=t.replace(/^(i|we|today,?\s*i|just|i've|i have)\s+/i,'');
+  let low=t.toLowerCase(),verb=null,rest=t;
+  for(const k of Object.keys(WEAK).sort((a,b)=>b.length-a.length)){
+    if(low.startsWith(k+' ')){verb=WEAK[k];rest=t.slice(k.length).trim();break;}
+  }
+  let head = verb? verb+' '+rest : (t.charAt(0).toUpperCase()+t.slice(1));
+  const clauses=[];
+  if(q.team) clauses.push(`with a ${q.team}-person${/cross/i.test(raw)?' cross-functional':''} team`);
+  if(q.number) clauses.push(`across ${q.number}${q.numberLabel?(' '+q.numberLabel):''}`);
+  if(q.duration) clauses.push(`over ${q.duration}`);
+  if(q.hours) clauses.push(`investing ${q.hours} focused hours`);
+  let impact='';
+  if(q.percent) impact=`, ${q.percentLabel||'improving results'} by ${q.percent}%`;
+  else if(q.revenue) impact=`, managing ${q.revenue} in budget/revenue`;
+  else impact=`, ${IMPACT[q._cat]||'delivering measurable impact'}`;
+  let out=head + (clauses.length?(' '+clauses.join(', ')):'') + impact;
+  out=out.replace(/\s+,/g,',').replace(/\s+/g,' ').trim();
+  if(!/[.!]$/.test(out)) out+='.';
+  return out.charAt(0).toUpperCase()+out.slice(1);
+}
+
+/* Async wrapper: tries a real Claude call, falls back to the engine above. */
+async function articulateSmart(raw,q,role){
+  if(!AI_CONFIG.enabled) return articulate(raw,q,role);
+  try{
+    const quant=Object.entries(q).filter(([k,v])=>v&&k[0]!=='_').map(([k,v])=>`${k}: ${v}`).join('; ');
+    const sys="You are a career coach. Rewrite the professional's plain-language note into ONE concise, measurable, impact-driven CV bullet using STAR principles. Return ONLY the bullet — no preamble, no quotes, under 40 words, starting with a strong past-tense action verb. Weave in any quantifiers naturally.";
+    const userMsg=`Role: ${role||'professional'}\nCategory: ${q._cat||'General'}\nAchievement: ${raw}\nQuantifiers: ${quant||'none'}`;
+    const res=await fetch(AI_CONFIG.endpoint,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:AI_CONFIG.model,max_tokens:200,system:sys,messages:[{role:'user',content:userMsg}]})
+    });
+    if(!res.ok) throw new Error('status '+res.status);
+    const data=await res.json();
+    const text=(data.content||[]).map(b=>b&&b.type==='text'?b.text:'').join('').trim().replace(/^[-•\s]+/,'').replace(/^["']|["']$/g,'');
+    if(!text) throw new Error('empty');
+    return text;
+  }catch(e){
+    return articulate(raw,q,role); // graceful degradation
+  }
+}
+
+/* =========================================================================
+   AUTH
+   ========================================================================= */
+let authTab='signup';
+function setAuthTab(t){
+  authTab=t;
+  document.getElementById('tab-signup').classList.toggle('active',t==='signup');
+  document.getElementById('tab-login').classList.toggle('active',t==='login');
+  document.getElementById('f-name').classList.toggle('hidden',t==='login');
+  document.getElementById('authSubmit').textContent = t==='signup'?'Agree & join':'Sign in';
+  document.getElementById('authFoot').innerHTML = t==='signup'
+    ? 'Already on Career Vault? <a href="#" onclick="setAuthTab(\'login\');return false">Log in</a>'
+    : 'New here? <a href="#" onclick="setAuthTab(\'signup\');return false">Create an account</a>';
+}
+function validEmail(v){return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test((v||'').trim());}
+function doAuth(e){
+  e.preventDefault();
+  const name=val('in-name'),email=val('in-email'),pass=val('in-pass');
+  let ok=true;
+  if(authTab==='signup'){ if(!name.trim()){bad('f-name');ok=false;}else good('f-name'); }
+  if(!validEmail(email)){bad('f-email');ok=false;}else good('f-email');
+  if(!pass||pass.length<6){bad('f-pass');ok=false;}else good('f-pass');
+  if(!ok)return false;
+  if(authTab==='signup'){
+    if(accounts.some(a=>a.email===email.toLowerCase())){bad('f-email');toast('That email is already registered — try logging in');return false;}
+    accounts.push({name,email:email.toLowerCase(),pass});
+    U=blankUser(name,email.toLowerCase());
+    startOnboarding();
+  }else{
+    const acc=accounts.find(a=>a.email===email.toLowerCase()&&a.pass===pass);
+    if(!acc){toast('No matching account. Check details or sign up.');return false;}
+    U=(U&&U.email===acc.email)?U:blankUser(acc.name,acc.email);
+    enterApp('dashboard');
+  }
+  return false;
+}
+function oauth(provider){
+  const email=(provider.toLowerCase())+'.user@example.com';
+  U=blankUser(provider+' User',email);
+  if(!accounts.some(a=>a.email===email)){accounts.push({name:provider+' User',email,pass:null});toast('Connected with '+provider);startOnboarding();}
+  else enterApp('dashboard');
+}
+function val(id){return document.getElementById(id).value;}
+function bad(id){document.getElementById(id).classList.add('bad');}
+function good(id){document.getElementById(id).classList.remove('bad');}
+
+/* =========================================================================
+   ONBOARDING
+   ========================================================================= */
+let onbStep=0;
+const SLIDES=[
+  {ic:'book',h:'Track your career journey',p:'Log what you do as it happens — meetings, projects, wins, certifications. Your professional diary, always with you.'},
+  {ic:'spark',h:'Quantify every achievement',p:'Career Vault turns plain notes into measurable, impact-driven bullet points that recruiters actually notice.'},
+  {ic:'doc',h:'Get hired faster',p:'Your journal becomes a live CV you can generate, tailor to any job description, and download in seconds.'},
+];
+function startOnboarding(){document.getElementById('auth').classList.add('hidden');document.getElementById('onboard').classList.remove('hidden');onbStep=0;renderOnb();}
+function renderOnb(){
+  const total=4;
+  document.getElementById('onbProg').style.width=((onbStep+1)/total*100)+'%';
+  const b=document.getElementById('onbBody');
+  if(onbStep<3){
+    const s=SLIDES[onbStep];
+    b.innerHTML=`
+      <div class="onb-slide">
+        <div class="onb-ill">${ic(s.ic)}</div>
+        <h2>${s.h}</h2><p>${s.p}</p>
+        <div class="dots">${[0,1,2].map(i=>`<span class="dot ${i===onbStep?'on':''}"></span>`).join('')}</div>
+      </div>
+      <div class="onb-nav">
+        ${onbStep>0?'<button class="btn btn-ghost" onclick="onbBack()">Back</button>':''}
+        <button class="btn btn-primary btn-block" onclick="onbNext()">${onbStep<2?'Next':'Set up my profile'}</button>
+      </div>`;
+  }else{
+    b.innerHTML=`
+      <h2 style="font-size:1.3rem;color:var(--blue-a)">A few details to personalise things</h2>
+      <p style="color:var(--sub);font-size:.9rem;margin:4px 0 16px">This seeds your profile and CV. You can change it any time.</p>
+      <div class="field"><label>Full name</label><input id="ob-name" value="${U.name||''}"></div>
+      <div class="row2">
+        <div class="field"><label>Current profession</label><input id="ob-prof" placeholder="e.g. Product Analyst"></div>
+        <div class="field"><label>Industry</label><input id="ob-ind" placeholder="e.g. Fintech"></div>
+      </div>
+      <div class="field"><label>Country</label>
+        <select id="ob-country"><option>Nigeria</option><option>Ghana</option><option>Kenya</option><option>South Africa</option><option>United Kingdom</option><option>United States</option><option>Other</option></select></div>
+      <div style="background:var(--bg);border:1px dashed var(--bd2);border-radius:10px;padding:14px;display:flex;gap:10px;align-items:center;margin-bottom:16px">
+        <span style="color:var(--blue)">${ic('dl')}</span>
+        <div style="flex:1"><b style="font-size:.86rem">Have a CV already?</b><div style="font-size:.78rem;color:var(--sub)">Upload it to pre-fill your Vault (optional).</div></div>
+        <button class="btn btn-plain btn-sm" onclick="toast('CV parsing runs in the real build — skipping for the demo')">Upload</button>
+      </div>
+      <div class="onb-nav">
+        <button class="btn btn-ghost" onclick="onbBack()">Back</button>
+        <button class="btn btn-primary btn-block" onclick="finishOnboarding()">Enter Career Vault</button>
+      </div>`;
+  }
+}
+function onbNext(){onbStep++;renderOnb();}
+function onbBack(){onbStep--;renderOnb();}
+function finishOnboarding(){
+  U.name=val('ob-name')||U.name;
+  U.profession=val('ob-prof')||'Professional';
+  U.industry=val('ob-ind')||'';
+  U.country=document.getElementById('ob-country').value;
+  addActivity('profile','Profile created — welcome to Career Vault');
+  document.getElementById('onboard').classList.add('hidden');
+  enterApp('dashboard');
+  toast('Welcome to Career Vault! Log your first achievement to begin.');
+}
+
+/* =========================================================================
+   APP ENTRY / ROUTER
+   ========================================================================= */
+function enterApp(view){
+  document.getElementById('auth').classList.add('hidden');
+  document.getElementById('app').classList.remove('hidden');
+  syncChrome();
+  go(view||'dashboard');
+}
+function logout(){if(U)usersMap[U.email]=U;U=null;wipeSession();document.getElementById('app').classList.add('hidden');document.getElementById('auth').classList.remove('hidden');setAuthTab('login');document.getElementById('authForm').reset();window.scrollTo(0,0);}
+function syncChrome(){
+  document.getElementById('topAvatar').textContent=initials(U.name);
+  document.getElementById('sideAvatar').textContent=initials(U.name);
+  document.getElementById('sideName').textContent=U.name;
+  document.getElementById('sideHead').textContent=U.profession+(U.country?(' · '+U.country):'');
+  document.getElementById('nb-journal').textContent=U.journal.length;
+  const tt=U.trackers.jobs.length+U.trackers.certs.length+U.trackers.learning.length+U.trackers.interviews.length;
+  document.getElementById('nb-tracker').textContent=tt;
+  const sc=careerScore();
+  document.getElementById('scoreRing').style.setProperty('--v',sc);
+  document.getElementById('scoreVal').textContent=sc;
+  persist();
+}
+let currentView='dashboard';
+function go(v){
+  currentView=v;
+  document.querySelectorAll('.navlink[data-v]').forEach(n=>n.classList.toggle('active',n.dataset.v===v));
+  document.querySelectorAll('.botnav button[data-v]').forEach(n=>n.classList.toggle('active',n.dataset.v===v));
+  if(window.innerWidth<=900){document.getElementById('sidebar').classList.remove('open');document.getElementById('scrim').classList.remove('show');}
+  syncChrome();
+  const el=document.getElementById('view');
+  ({dashboard:renderDashboard,journal:renderJournal,cv:renderCV,customise:renderCustomise,tracker:renderTracker,insights:renderInsights,learn:renderLearn,community:renderCommunity,profile:renderProfile}[v]||renderDashboard)(el);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open');document.getElementById('scrim').classList.toggle('show');}
+
+/* =========================================================================
+   HELPERS: activity, score
+   ========================================================================= */
+function addActivity(type,text){U.activity.unshift({type,text,t:Date.now()});U.activity=U.activity.slice(0,20);}
+function timeAgo(t){const s=(Date.now()-t)/1000;if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';}
+function careerScore(){
+  let s=0;
+  if(U.profession)s+=8; if(U.industry)s+=6; if(U.bio)s+=8;
+  s+=Math.min(U.experiences.length*8,16);
+  s+=Math.min(U.skills.length*2,12);
+  s+=Math.min(U.journal.length*4,28);
+  const tr=U.trackers.jobs.length+U.trackers.certs.length+U.trackers.learning.length;
+  s+=Math.min(tr*3,12);
+  s+=Math.min(U.cvGenerated*5,10);
+  return Math.min(100,Math.round(s));
+}
+function activityIcon(type){return {journal:'spark',cv:'cvgen',tracker:'brief',cert:'award',profile:'edit',customise:'target',learn:'cap'}[type]||'spark';}
+function activityColor(type){return {journal:'blue',cv:'red',tracker:'blue',cert:'gold',profile:'green',customise:'blue',learn:'gold'}[type]||'blue';}
+function iconBg(color){return {blue:'background:var(--blue-tint);color:var(--blue)',red:'background:var(--red-t);color:var(--red)',green:'background:var(--green-t);color:var(--green)',gold:'background:var(--gold-t);color:var(--gold-d)'}[color];}
+
+/* =========================================================================
+   VIEW: DASHBOARD
+   ========================================================================= */
+function renderDashboard(el){
+  const prompt=PROMPTS[Math.floor(Date.now()/86400000)%PROMPTS.length];
+  const first=(U.name||'there').split(' ')[0];
+  const stats=[
+    {n:U.journal.length,l:'Journal entries',ic:'spark',c:'blue'},
+    {n:U.trackers.certs.length,l:'Certifications tracked',ic:'award',c:'gold'},
+    {n:U.trackers.jobs.length,l:'Applications logged',ic:'brief',c:'green'},
+    {n:U.cvGenerated,l:'CVs generated',ic:'doc',c:'red'},
+  ];
+  el.innerHTML=`
+    <div class="welcome">
+      <h2>Welcome back, ${first} 👋</h2>
+      <p>${prompt}</p>
+      <button class="btn btn-plain" style="background:#fff;border-color:#fff" onclick="openAchievement()">${ic('spark')} Log what you did today</button>
+    </div>
+
+    <div class="stat-grid">
+      ${stats.map(s=>`<div class="stat"><div class="ic" style="${iconBg(s.c)}">${ic(s.ic)}</div><div class="num">${s.n}</div><div class="lbl">${s.l}</div></div>`).join('')}
+    </div>
+
+    <div class="grid-2">
+      <div class="panel">
+        <div class="panel-head"><h3>Recent activity</h3><a href="#" onclick="go('journal');return false" style="font-size:.82rem;font-weight:600">View journal</a></div>
+        <div class="panel-body">
+          ${U.activity.length? U.activity.slice(0,5).map(a=>`
+            <div class="activity"><div class="ic" style="${iconBg(activityColor(a.type))}">${ic(activityIcon(a.type))}</div>
+            <div class="t">${a.text}<small>${timeAgo(a.t)}</small></div></div>`).join('')
+          : `<div class="empty" style="padding:26px"><div class="ic">${ic('spark')}</div><h3>Nothing logged yet</h3><p>Your recent achievements, CVs and tracker updates will show up here.</p><button class="btn btn-primary" onclick="openAchievement()">Add your first achievement</button></div>`}
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-head"><h3>Quick actions</h3></div>
+        <div class="panel-body">
+          <div class="qa-grid">
+            <button class="qa" onclick="openAchievement()"><span class="ic">${ic('spark')}</span><div><b>Add achievement</b><small>Log a win</small></div></button>
+            <button class="qa" onclick="openJobTracker()"><span class="ic">${ic('brief')}</span><div><b>Track application</b><small>Log a job</small></div></button>
+            <button class="qa" onclick="go('cv')"><span class="ic">${ic('doc')}</span><div><b>Generate CV</b><small>From journal</small></div></button>
+            <button class="qa" onclick="go('insights')"><span class="ic">${ic('chart')}</span><div><b>View insights</b><small>Your trends</small></div></button>
+          </div>
+          <div style="margin-top:14px;background:var(--bg);border-radius:10px;padding:14px;display:flex;gap:12px;align-items:center">
+            <div class="ring" style="--v:${careerScore()};width:52px;height:52px"><i style="width:40px;height:40px;font-size:.85rem">${careerScore()}</i></div>
+            <div><b style="font-size:.9rem">Career Progress Score</b><div style="font-size:.8rem;color:var(--sub)">${scoreHint()}</div></div>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function scoreHint(){
+  const s=careerScore();
+  if(s<25)return'Add experiences and log achievements to build momentum.';
+  if(s<55)return'Good start — keep logging weekly and add your skills.';
+  if(s<80)return'Strong profile. Generate a CV and tailor it to a role.';
+  return'Excellent — your Vault is application-ready.';
+}
+
+/* =========================================================================
+   VIEW: CAREER JOURNAL
+   ========================================================================= */
+let jFilter='All',jQuery='';
+function renderJournal(el){
+  el.innerHTML=`
+    <div class="page-head"><h1>Career Journal</h1><p>Your professional diary — every entry feeds your live CV.</p></div>
+    <div class="toolbar">
+      <div class="search-box grow"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px;color:var(--faint)"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg><input id="jSearch" placeholder="Search entries…" value="${jQuery}" oninput="jQuery=this.value;paintEntries()"></div>
+      <button class="btn btn-primary" onclick="openAchievement()">${ic('spark')} Add achievement</button>
+    </div>
+    <div class="seg" style="margin-bottom:14px">
+      ${['All',...CATS].map(c=>`<button class="${jFilter===c?'on':''}" onclick="jFilter='${c}';renderJournal(document.getElementById('view'))">${c}</button>`).join('')}
+    </div>
+    <div id="entries"></div>`;
+  paintEntries();
+}
+function paintEntries(){
+  const wrap=document.getElementById('entries');
+  if(!wrap)return;
+  let items=U.journal.slice();
+  if(jFilter!=='All')items=items.filter(e=>e.category===jFilter);
+  if(jQuery.trim()){const q=jQuery.toLowerCase();items=items.filter(e=>(e.aiText+e.rawText+expName(e.expId)).toLowerCase().includes(q));}
+  items.sort((a,b)=>(b.pinned-a.pinned)||(b.created-a.created));
+  if(!items.length){
+    wrap.innerHTML=`<div class="card"><div class="empty"><div class="ic">${ic('book')}</div><h3>${U.journal.length?'No entries match':'Your journal is empty'}</h3><p>${U.journal.length?'Try a different filter or search.':'Log what you did today and watch it become a polished, CV-ready achievement.'}</p><button class="btn btn-primary" onclick="openAchievement()">Add an achievement</button></div></div>`;return;
+  }
+  wrap.innerHTML=items.map(e=>{
+    const q=e.quantifiers||{};const badges=[];
+    if(q.team)badges.push(q.team+'-person team');
+    if(q.number)badges.push(q.number+(q.numberLabel?(' '+q.numberLabel):''));
+    if(q.duration)badges.push(q.duration);
+    if(q.hours)badges.push(q.hours+' hrs');
+    if(q.percent)badges.push('+'+q.percent+'%');
+    if(q.revenue)badges.push(q.revenue);
+    return `<div class="entry">
+      ${e.pinned?`<span class="pin-flag">${ic('pin')}</span>`:''}
+      <div class="entry-top">
+        <span class="avatar sm">${initials(expCompany(e.expId))}</span>
+        <div class="entry-meta">
+          <div class="co">${expName(e.expId)}</div>
+          <div class="rl">${new Date(e.created).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}</div>
+        </div>
+        <div class="entry-cat"><span class="chip ${catChip(e.category)}">${e.category}</span></div>
+      </div>
+      <div class="entry-ai"><span class="tag">${ic('spark')} AI-articulated</span><div>${e.aiText}</div></div>
+      <div class="entry-raw">You wrote: “${e.rawText}”</div>
+      ${badges.length?`<div class="entry-q">${badges.map(b=>`<span class="qbadge">${b}</span>`).join('')}</div>`:''}
+      <div class="entry-actions">
+        <button class="${e.pinned?'pinned':''}" onclick="togglePin(${e.id})">${ic('pin')} ${e.pinned?'Pinned':'Pin'}</button>
+        <button onclick="openAchievement(${e.id})">${ic('edit')} Edit</button>
+        <button onclick="deleteEntry(${e.id})">${ic('trash')} Delete</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+function catChip(c){return {'Certification':'gold','Project':'','Training':'g','Event':'n','Monthly Milestone':'gold','Weekly Achievement':''}[c]||'';}
+function expName(id){const e=U.experiences.find(x=>x.id===id);return e?`${e.title} · ${e.company}`:'General';}
+function expCompany(id){const e=U.experiences.find(x=>x.id===id);return e?e.company:'General';}
+function togglePin(id){const e=U.journal.find(x=>x.id===id);e.pinned=!e.pinned;paintEntries();persist();toast(e.pinned?'Pinned to top':'Unpinned');}
+function deleteEntry(id){U.journal=U.journal.filter(x=>x.id!==id);syncChrome();paintEntries();toast('Entry deleted');}
+
+/* =========================================================================
+   ADD / EDIT ACHIEVEMENT (flagship)
+   ========================================================================= */
+let aiDraft='';
+function openAchievement(editId){
+  const editing = editId!=null ? U.journal.find(e=>e.id===editId) : null;
+  const q=editing?editing.quantifiers:{};
+  const expOpts=U.experiences.map(e=>`<option value="${e.id}" ${editing&&editing.expId===e.id?'selected':''}>${e.title} · ${e.company}</option>`).join('');
+  showModal(`
+    <div class="modal-head"><div><h2>${editing?'Edit achievement':'Log what you did'}</h2><div class="sub">Plain language in — a measurable, CV-ready line out.</div></div>${xBtn()}</div>
+    <div class="modal-body">
+      <div class="field" id="ac-raw"><label>What did you do or achieve?</label>
+        <textarea id="acRaw" rows="2" placeholder="e.g. Led team meetings on the new product rollout">${editing?editing.rawText:''}</textarea><span class="err">Add a short description.</span></div>
+
+      <div style="font-size:.8rem;font-weight:600;color:var(--sub);margin:2px 0 8px">Add numbers to make it stronger (optional)</div>
+      <div class="quant-grid">
+        <div class="field"><label>Hours spent</label><input id="q-hours" type="number" min="0" placeholder="e.g. 12" value="${q.hours||''}"></div>
+        <div class="field"><label>Duration</label><input id="q-duration" placeholder="e.g. 2 weeks" value="${q.duration||''}"></div>
+        <div class="field"><label>Number</label><input id="q-number" placeholder="e.g. 8" value="${q.number||''}"></div>
+        <div class="field"><label>…of what?</label><input id="q-numlabel" placeholder="e.g. clients served" value="${q.numberLabel||''}"></div>
+        <div class="field"><label>Team size</label><input id="q-team" type="number" min="0" placeholder="e.g. 5" value="${q.team||''}"></div>
+        <div class="field"><label>Budget / revenue</label><input id="q-rev" placeholder="e.g. ₦2.5M" value="${q.revenue||''}"></div>
+        <div class="field"><label>% impact</label><input id="q-pct" type="number" min="0" placeholder="e.g. 30" value="${q.percent||''}"></div>
+        <div class="field"><label>Impact type</label><input id="q-pctlabel" placeholder="e.g. increased sales" value="${q.percentLabel||''}"></div>
+      </div>
+
+      <div class="row2">
+        <div class="field"><label>Experience / role</label>
+          <select id="ac-exp">${expOpts}<option value="__new">+ Add a new role…</option></select></div>
+        <div class="field"><label>Category</label>
+          <select id="ac-cat">${CATS.map(c=>`<option ${editing&&editing.category===c?'selected':''}>${c}</option>`).join('')}</select></div>
+      </div>
+
+      <div id="acAiWrap"></div>
+
+      <div style="display:flex;gap:10px;margin-top:6px">
+        <button class="btn btn-sec" style="flex:1" onclick="runArticulate()">${ic('spark')} Articulate with AI</button>
+        <button class="btn btn-primary" style="flex:1" id="acSave" onclick="saveAchievement(${editId!=null?editId:'null'})">${editing?'Save changes':'Save & add to journal'}</button>
+      </div>
+      <div style="font-size:.72rem;color:var(--faint);text-align:center;margin-top:8px">Articulation uses a built-in engine in this MVP; the production build calls the Claude API.</div>
+    </div>`);
+  document.getElementById('ac-exp').addEventListener('change',function(){if(this.value==='__new')quickAddRole(this);});
+  aiDraft=editing?editing.aiText:'';
+  if(editing)paintAi(editing.aiText);
+}
+function quickAddRole(sel){
+  const title=prompt('Job title (e.g. Product Analyst):');if(!title){sel.value=sel.options[0].value;return;}
+  const company=prompt('Company (e.g. Paystack):')||'—';
+  const e={id:nid(),company,title,start:'',end:'',current:true};
+  U.experiences.push(e);
+  const o=document.createElement('option');o.value=e.id;o.textContent=`${title} · ${company}`;o.selected=true;
+  sel.insertBefore(o,sel.lastChild);
+  toast('Role added to your profile');
+}
+function collectQuant(){
+  return {hours:v2('q-hours'),duration:v2('q-duration'),number:v2('q-number'),numberLabel:v2('q-numlabel'),
+    team:v2('q-team'),revenue:v2('q-rev'),percent:v2('q-pct'),percentLabel:v2('q-pctlabel'),_cat:document.getElementById('ac-cat').value};
+}
+function v2(id){const el=document.getElementById(id);return el?el.value.trim():'';}
+async function runArticulate(){
+  const raw=document.getElementById('acRaw').value.trim();
+  if(!raw){document.getElementById('ac-raw').classList.add('bad');return;}
+  document.getElementById('ac-raw').classList.remove('bad');
+  const wrap=document.getElementById('acAiWrap');
+  wrap.innerHTML=`<div class="ai-preview"><span class="tag">${ic('spark')} AI is articulating…</span><div class="spin"></div></div>`;
+  const q=collectQuant();
+  const text=await articulateSmart(raw,q,U.profession);
+  if(document.getElementById('acAiWrap')) paintAi(text); // guard if modal closed mid-call
+}
+function paintAi(text){
+  aiDraft=text;
+  document.getElementById('acAiWrap').innerHTML=`
+    <div class="ai-preview">
+      <span class="tag">${ic('spark')} CV-ready achievement (editable)</span>
+      <textarea id="acAi" oninput="aiDraft=this.value">${text}</textarea>
+      <button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="runArticulate()">↻ Regenerate</button>
+    </div>`;
+}
+function saveAchievement(editId){
+  const raw=document.getElementById('acRaw').value.trim();
+  if(!raw){document.getElementById('ac-raw').classList.add('bad');return;}
+  if(!U.experiences.length){toast('Add a role first (choose "+ Add a new role")');return;}
+  const q=collectQuant();
+  if(!aiDraft)aiDraft=articulate(raw,q,U.profession);
+  const expId=parseInt(document.getElementById('ac-exp').value)||U.experiences[0].id;
+  const cat=document.getElementById('ac-cat').value;
+  if(editId!=null){
+    const e=U.journal.find(x=>x.id===editId);
+    Object.assign(e,{rawText:raw,aiText:aiDraft,quantifiers:q,expId,category:cat});
+    toast('Achievement updated');
+  }else{
+    U.journal.unshift({id:nid(),expId,category:cat,rawText:raw,aiText:aiDraft,quantifiers:q,pinned:false,created:Date.now()});
+    addActivity('journal','Logged: “'+truncate(aiDraft,60)+'”');
+    if(cat==='Certification'){U.trackers.certs.push({id:nid(),name:truncate(raw,40),provider:'—',status:'Completed'});}
+    toast('Saved to journal and synced to your CV ✨');
+  }
+  aiDraft='';closeModal();syncChrome();
+  if(currentView==='journal')paintEntries(); else if(currentView==='dashboard')renderDashboard(document.getElementById('view'));
+}
+function truncate(s,n){return s.length>n?s.slice(0,n-1)+'…':s;}
+
+/* =========================================================================
+   VIEW: CV VAULT
+   ========================================================================= */
+function buildMasterCV(){
+  const byExp={};
+  U.journal.forEach(e=>{(byExp[e.expId]=byExp[e.expId]||[]).push(e);});
+  return {
+    name:U.name,profession:U.profession,email:U.email,country:U.country,
+    summary:U.bio||autoSummary(),
+    experiences:U.experiences.map(x=>({...x,bullets:(byExp[x.id]||[]).map(j=>j.aiText)})),
+    skills:U.skills,
+    certs:U.trackers.certs.filter(c=>c.status==='Completed'),
+    projects:U.journal.filter(j=>j.category==='Project').map(j=>j.aiText),
+  };
+}
+function autoSummary(){
+  const top=U.journal[0]?(' Recent impact includes '+truncate(U.journal[0].aiText.replace(/\.$/,''),80).toLowerCase()+'.'):'';
+  return `${U.profession||'Professional'}${U.industry?(' in '+U.industry):''} focused on measurable impact and continuous growth.${top}`;
+}
+function renderCV(el){
+  const cv=buildMasterCV();
+  const hasData=U.journal.length&&U.experiences.length;
+  el.innerHTML=`
+    <div class="page-head" style="display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px">
+      <div><h1>CV Vault</h1><p>A live master CV, always up to date with your journal.</p></div>
+      <div style="display:flex;gap:8px">
+        <button class="btn btn-plain" onclick="generateCV()">${ic('cvgen')} Generate CV</button>
+        <button class="btn btn-primary" onclick="go('customise')">${ic('target')} Tailor to a job</button>
+      </div>
+    </div>
+    ${!hasData?`<div class="card"><div class="empty"><div class="ic">${ic('doc')}</div><h3>Your CV builds itself</h3><p>Add at least one role and one achievement, and your master CV appears here automatically.</p><button class="btn btn-primary" onclick="openAchievement()">Add an achievement</button></div></div>`:`
+    <div class="cv-layout">
+      <div class="cv-doc" id="cvDoc">${cvHTML(cv)}</div>
+      <div class="cv-side">
+        <div class="panel" style="margin-bottom:16px">
+          <div class="panel-head"><h3>Auto-collated from</h3></div>
+          <div class="panel-body">
+            <div class="cv-side-row"><span class="ic">${ic('check')}</span><div><b>${U.experiences.length}</b> experiences · <b>${U.journal.length}</b> journal entries</div></div>
+            <div class="cv-side-row"><span class="ic">${ic('check')}</span><div><b>${cv.certs.length}</b> completed certifications</div></div>
+            <div class="cv-side-row"><span class="ic">${ic('check')}</span><div><b>${U.skills.length}</b> skills · <b>${cv.projects.length}</b> projects</div></div>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Saved versions</h3></div>
+          <div class="panel-body">
+            ${U.cvVersions.length?U.cvVersions.map(v=>`
+              <div class="version"><span class="ic">${ic('doc')}</span>
+                <div style="flex:1"><b>${v.name}</b><small>${new Date(v.created).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}${v.jd?' · tailored':''}</small></div>
+                <button class="btn btn-ghost btn-sm" onclick="downloadCV(${v.id})">${ic('dl')}</button>
+              </div>`).join(''):`<p style="font-size:.85rem;color:var(--sub)">Generate a CV to save a version here.</p>`}
+          </div>
+        </div>
+      </div>
+    </div>`}`;
+}
+function cvHTML(cv){
+  return `
+    <div class="cv-name">${cv.name}</div>
+    <div style="font-weight:600;color:var(--blue-h)">${cv.profession||''}</div>
+    <div class="cv-contact"><span>${cv.email}</span>${cv.country?`<span>· ${cv.country}</span>`:''}</div>
+    <div class="cv-sec"><h4>Professional Summary</h4><div class="cv-summary">${cv.summary}</div></div>
+    <div class="cv-sec"><h4>Work Experience</h4>
+      ${cv.experiences.map(x=>`
+        <div class="cv-role">
+          <div class="rt"><b>${x.title}</b><span>${fmtRange(x)}</span></div>
+          <div class="co">${x.company}</div>
+          ${x.bullets.length?`<ul class="cv-bullets">${x.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`:'<div style="font-size:.82rem;color:var(--faint);margin-top:4px">No achievements logged for this role yet.</div>'}
+        </div>`).join('')}
+    </div>
+    ${cv.projects.length?`<div class="cv-sec"><h4>Projects</h4><ul class="cv-bullets">${cv.projects.map(p=>`<li>${p}</li>`).join('')}</ul></div>`:''}
+    ${cv.certs.length?`<div class="cv-sec"><h4>Certifications &amp; Training</h4><ul class="cv-bullets">${cv.certs.map(c=>`<li>${c.name}${c.provider&&c.provider!=='—'?(' — '+c.provider):''}</li>`).join('')}</ul></div>`:''}
+    ${cv.skills.length?`<div class="cv-sec"><h4>Skills</h4><div class="cv-skills">${cv.skills.map(s=>`<span class="chip">${s}</span>`).join('')}</div></div>`:''}`;
+}
+function fmtRange(x){const s=x.start||'';const e=x.current?'Present':(x.end||'');return [s,e].filter(Boolean).join(' – ')||'';}
+function generateCV(){
+  if(!(U.journal.length&&U.experiences.length)){toast('Add a role and an achievement first');return;}
+  showModal(`<div class="modal-body" style="text-align:center;padding:40px"><div class="spin"></div><p style="color:var(--sub)">Building your formatted CV…</p></div>`);
+  setTimeout(()=>{
+    const cv=buildMasterCV();
+    const ver={id:nid(),name:'Master CV',created:Date.now(),jd:null,html:cvHTML(cv)};
+    U.cvVersions.unshift(ver);U.cvGenerated++;addActivity('cv','Generated a CV from your journal');syncChrome();
+    showModal(`
+      <div class="modal-head"><div><h2>Your CV is ready</h2><div class="sub">Preview below — download as PDF or Word.</div></div>${xBtn()}</div>
+      <div class="modal-body">
+        <div class="cv-doc" style="max-height:360px;overflow:auto;border:1px solid var(--bd)">${ver.html}</div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn btn-plain" style="flex:1" onclick="printCV(${ver.id})">${ic('dl')} Download PDF</button>
+          <button class="btn btn-primary" style="flex:1" onclick="downloadCV(${ver.id})">${ic('dl')} Download Word</button>
+        </div>
+      </div>`);
+    if(currentView==='cv')renderCV(document.getElementById('view'));
+  },800);
+}
+function downloadCV(id){
+  const v=U.cvVersions.find(x=>x.id===id);if(!v)return;
+  const html=`<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word"><head><meta charset="utf-8"><style>body{font-family:Calibri,Arial,sans-serif;color:#222;max-width:720px}h1{color:#004182;margin:0}h4{color:#0A66C2;border-bottom:1px solid #cfe3f7;text-transform:uppercase;font-size:12px;letter-spacing:1px;margin:18px 0 6px}li{margin-bottom:4px}</style></head><body>${v.html.replace(/class="[^"]*"/g,'')}</body></html>`;
+  const blob=new Blob(['\ufeff',html],{type:'application/msword'});
+  triggerDownload(blob,(v.name.replace(/\s+/g,'_'))+'.doc');
+  toast('CV downloaded (.doc)');
+}
+function printCV(id){
+  const v=U.cvVersions.find(x=>x.id===id);if(!v)return;
+  const area=document.getElementById('printArea');
+  area.style.display='block';area.innerHTML=`<div class="cv-doc">${v.html}</div>`;
+  closeModal();
+  setTimeout(()=>{try{window.print();}catch(e){toast('Use your browser menu to print / save as PDF');}
+    setTimeout(()=>{area.style.display='none';area.innerHTML='';},400);},150);
+}
+function triggerDownload(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove();},500);}
+
+/* =========================================================================
+   VIEW: CUSTOMISE CV (JD matching)
+   ========================================================================= */
+let jdMatches=[];
+function renderCustomise(el){
+  el.innerHTML=`
+    <div class="page-head"><h1>Customise CV for a job</h1><p>Paste a job description — we match it to your journal and build a tailored CV.</p></div>
+    <div class="card" style="padding:18px">
+      <div class="field"><label>Paste the job description</label>
+        <textarea id="jdText" rows="6" placeholder="Paste the full job description here — responsibilities, requirements, skills…"></textarea></div>
+      <div style="display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="analyzeJD()">${ic('target')} Analyse &amp; match</button>
+        <button class="btn btn-plain" onclick="fillSampleJD()">Use a sample JD</button>
+      </div>
+    </div>
+    <div id="jdResult" style="margin-top:16px"></div>`;
+}
+const SAMPLE_JD=`Product Analyst — Fintech (Lagos, Hybrid). We are looking for a data-driven Product Analyst to partner with product and engineering teams. Responsibilities: analyse user behaviour with SQL, run A/B tests, build dashboards, and drive roadmap decisions. Requirements: strong stakeholder management, experience improving conversion or retention metrics, cross-functional collaboration, and clear communication of insights.`;
+function fillSampleJD(){document.getElementById('jdText').value=SAMPLE_JD;}
+function analyzeJD(){
+  const jd=document.getElementById('jdText').value.trim();
+  if(jd.length<40){toast('Paste a longer job description to match against');return;}
+  if(!U.journal.length){toast('Add some journal achievements first so there is something to match');return;}
+  const res=document.getElementById('jdResult');
+  res.innerHTML=`<div class="card" style="padding:24px;text-align:center"><div class="spin"></div><p style="color:var(--sub)">Analysing the job description and matching your achievements…</p></div>`;
+  setTimeout(()=>{
+    const kws=extractKeywords(jd);
+    jdMatches=U.journal.map(e=>{
+      const text=(e.aiText+' '+e.rawText+' '+expName(e.expId)).toLowerCase();
+      const hits=kws.filter(k=>text.includes(k));
+      const score=Math.min(98,40+hits.length*14+(e.quantifiers&&(e.quantifiers.percent||e.quantifiers.revenue)?10:0));
+      return {e,hits,score,sel:hits.length>0};
+    }).sort((a,b)=>b.score-a.score);
+    paintJD(kws);
+  },800);
+}
+function extractKeywords(jd){
+  const stop=new Set('a an the and or for with to of in on at is are be we you our your as by from this that will who role job description requirements responsibilities strong experience looking data driven team'.split(' '));
+  const freq={};
+  jd.toLowerCase().replace(/[^a-z0-9\s+#.]/g,' ').split(/\s+/).forEach(w=>{if(w.length>3&&!stop.has(w))freq[w]=(freq[w]||0)+1;});
+  return Object.keys(freq).sort((a,b)=>freq[b]-freq[a]).slice(0,14);
+}
+function paintJD(kws){
+  const selCount=jdMatches.filter(m=>m.sel).length;
+  document.getElementById('jdResult').innerHTML=`
+    <div class="card" style="padding:16px;margin-bottom:14px">
+      <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px">
+        <b style="font-size:.95rem">Matched keywords from the JD</b>
+        <span class="chip g">${jdMatches.filter(m=>m.score>=60).length} strong matches</span>
+      </div>
+      <div style="margin-top:8px">${kws.slice(0,10).map(k=>`<span class="kw">${k}</span>`).join('')}</div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3>Suggested achievements <span style="color:var(--sub);font-weight:500">(${selCount} selected)</span></h3>
+        <button class="btn btn-primary btn-sm" onclick="generateTailored()">${ic('cvgen')} Generate tailored CV</button></div>
+      <div class="panel-body">
+        ${jdMatches.map((m,i)=>`
+          <div class="match-row ${m.sel?'sel':''}" onclick="toggleMatch(${i})">
+            <div class="match-check">${ic('check')}</div>
+            <div class="match-body"><p>${m.e.aiText}</p>
+              <div style="margin-top:4px;font-size:.75rem;color:var(--sub)">${expName(m.e.expId)}</div>
+              ${m.hits.length?`<div style="margin-top:4px">${m.hits.slice(0,5).map(h=>`<span class="kw">${h}</span>`).join('')}</div>`:''}
+            </div>
+            <div class="match-score"><b>${m.score}%</b><small>match</small></div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+}
+function toggleMatch(i){jdMatches[i].sel=!jdMatches[i].sel;paintJD(extractKeywords(document.getElementById('jdText').value));}
+function generateTailored(){
+  const picked=jdMatches.filter(m=>m.sel);
+  if(!picked.length){toast('Select at least one achievement to include');return;}
+  showModal(`<div class="modal-body" style="text-align:center;padding:40px"><div class="spin"></div><p style="color:var(--sub)">Building your tailored CV…</p></div>`);
+  setTimeout(()=>{
+    const cv=buildMasterCV();
+    const keep=new Set(picked.map(m=>m.e.aiText));
+    cv.experiences=cv.experiences.map(x=>({...x,bullets:x.bullets.filter(b=>keep.has(b))})).filter(x=>x.bullets.length);
+    cv.summary='Tailored for this role. '+cv.summary;
+    const ver={id:nid(),name:'Tailored CV',created:Date.now(),jd:true,html:cvHTML(cv)};
+    U.cvVersions.unshift(ver);U.cvGenerated++;addActivity('customise','Created a tailored CV for a job application');syncChrome();
+    showModal(`
+      <div class="modal-head"><div><h2>Tailored CV ready</h2><div class="sub">Built from your ${picked.length} best-matched achievements.</div></div>${xBtn()}</div>
+      <div class="modal-body">
+        <div class="cv-doc" style="max-height:340px;overflow:auto;border:1px solid var(--bd)">${ver.html}</div>
+        <div style="display:flex;gap:10px;margin-top:14px">
+          <button class="btn btn-plain" style="flex:1" onclick="printCV(${ver.id})">${ic('dl')} Download PDF</button>
+          <button class="btn btn-primary" style="flex:1" onclick="downloadCV(${ver.id})">${ic('dl')} Download Word</button>
+        </div>
+        <p style="font-size:.78rem;color:var(--sub);text-align:center;margin-top:10px">Saved to CV Vault. Link it to a job in your Tracker to keep everything together.</p>
+      </div>`);
+  },800);
+}
+
+/* =========================================================================
+   VIEW: TRACKER
+   ========================================================================= */
+let trkTab='jobs';
+function renderTracker(el){
+  el.innerHTML=`
+    <div class="page-head"><h1>Tracker</h1><p>Applications, certifications, learning, interviews and to-dos in one place.</p></div>
+    <div class="seg" style="margin-bottom:16px">
+      ${[['jobs','Applications'],['certs','Certifications'],['learning','Learning'],['interviews','Interviews'],['todos','To-Do']].map(([k,l])=>`<button class="${trkTab===k?'on':''}" onclick="trkTab='${k}';renderTracker(document.getElementById('view'))">${l}</button>`).join('')}
+    </div>
+    <div id="trkBody"></div>`;
+  paintTracker();
+}
+function paintTracker(){
+  const b=document.getElementById('trkBody');
+  if(!b)return;
+  if(trkTab==='jobs')return void(b.innerHTML=jobsBoard());
+  if(trkTab==='certs')return void(b.innerHTML=certsList());
+  if(trkTab==='learning')return void(b.innerHTML=learnList());
+  if(trkTab==='interviews')return void(b.innerHTML=interviewList());
+  if(trkTab==='todos')return void(b.innerHTML=todoList());
+}
+function jobsBoard(){
+  const head=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Job applications</b><button class="btn btn-primary btn-sm" onclick="openJobTracker()">${ic('brief')} Add application</button></div>`;
+  if(!U.trackers.jobs.length)return head+emptyCard('brief','No applications yet','Log the roles you apply to and track them from Applied to Offer.','openJobTracker()','Add application');
+  return head+`<div class="kanban">${JOB_STATUS.map(st=>{
+    const items=U.trackers.jobs.filter(j=>j.status===st);
+    return `<div class="kcol"><h4>${st}<span>${items.length}</span></h4>
+      ${items.map(j=>`<div class="kcard" onclick="cycleJob(${j.id})"><b>${j.role}</b><small>${j.company}</small>${j.cv?`<div style="margin-top:6px"><span class="chip">${ic('doc')} tailored CV</span></div>`:''}</div>`).join('')}
+    </div>`;}).join('')}</div>
+    <p style="font-size:.78rem;color:var(--sub);margin-top:10px">Tip: tap a card to advance its status.</p>`;
+}
+function cycleJob(id){const j=U.trackers.jobs.find(x=>x.id===id);const i=JOB_STATUS.indexOf(j.status);j.status=JOB_STATUS[(i+1)%JOB_STATUS.length];paintTracker();persist();toast(j.role+' → '+j.status);}
+function certsList(){
+  const head=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Certifications</b><button class="btn btn-primary btn-sm" onclick="openCert()">${ic('award')} Add certification</button></div>`;
+  if(!U.trackers.certs.length)return head+emptyCard('award','No certifications tracked','Add courses and certifications — completed ones auto-sync to your CV.','openCert()','Add certification');
+  return head+`<div class="card"><div class="panel-body trk-list">${U.trackers.certs.map(c=>`
+    <div class="row"><div class="trk-ic" style="background:var(--gold-t);color:var(--gold-d)">${ic('award')}</div>
+      <div class="trk-main"><b>${c.name}</b><small>${c.provider||'—'}</small></div>
+      <span class="chip ${c.status==='Completed'?'g':c.status==='In Progress'?'gold':'n'}">${c.status}</span></div>`).join('')}</div></div>`;
+}
+function learnList(){
+  const head=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Learning</b><button class="btn btn-primary btn-sm" onclick="openLearningItem()">${ic('cap')} Add item</button></div>`;
+  if(!U.trackers.learning.length)return head+emptyCard('cap','Nothing here yet','Track books, courses and skills you are working on.','openLearningItem()','Add item');
+  return head+`<div class="card"><div class="panel-body trk-list">${U.trackers.learning.map(c=>`
+    <div class="row"><div class="trk-ic">${ic('cap')}</div><div class="trk-main"><b>${c.name}</b><small>${c.provider||'Self-study'}</small></div>
+    <span class="chip ${c.status==='Completed'?'g':'gold'}">${c.status}</span></div>`).join('')}</div></div>`;
+}
+function interviewList(){
+  const head=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Interviews</b><button class="btn btn-primary btn-sm" onclick="openInterview()">${ic('cal')} Add interview</button></div>`;
+  if(!U.trackers.interviews.length)return head+emptyCard('cal','No interviews scheduled','Keep interview dates, stages and notes organised here.','openInterview()','Add interview');
+  return head+`<div class="card"><div class="panel-body trk-list">${U.trackers.interviews.map(c=>`
+    <div class="row"><div class="trk-ic">${ic('cal')}</div><div class="trk-main"><b>${c.role} · ${c.company}</b><small>${c.date||'Date TBC'} · ${c.mode||'Virtual'} · ${c.stage||'Stage 1'}</small></div></div>`).join('')}</div></div>`;
+}
+function todoList(){
+  const head=`<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px"><b>Daily to-do</b><button class="btn btn-primary btn-sm" onclick="addTodo()">${ic('spark')} Add task</button></div>`;
+  if(!U.trackers.todos.length)return head+emptyCard('check','No tasks yet','Add professional goals for the day. Completed tasks can become journal entries.','addTodo()','Add task');
+  return head+`<div class="card"><div class="panel-body">${U.trackers.todos.map(t=>`
+    <div class="todo ${t.done?'done':''}"><button class="todo-box" onclick="toggleTodo(${t.id})">${ic('check')}</button>
+      <span class="todo-txt">${t.text}</span>
+      ${t.done?`<button class="btn btn-ghost btn-sm" onclick="todoToJournal(${t.id})">${ic('spark')} Log it</button>`:''}
+      <button class="btn btn-ghost btn-sm" onclick="delTodo(${t.id})">${ic('trash')}</button></div>`).join('')}</div></div>`;
+}
+function emptyCard(icn,h,p,fn,label){return `<div class="card"><div class="empty"><div class="ic">${ic(icn)}</div><h3>${h}</h3><p>${p}</p><button class="btn btn-primary" onclick="${fn}">${label}</button></div></div>`;}
+
+function openJobTracker(){
+  showModal(`
+    <div class="modal-head"><div><h2>Track a job application</h2></div>${xBtn()}</div>
+    <div class="modal-body">
+      <div class="row2">
+        <div class="field" id="jt-co"><label>Company</label><input id="jt-company" placeholder="e.g. Kudi Financial"><span class="err">Required.</span></div>
+        <div class="field" id="jt-rl"><label>Role</label><input id="jt-role" placeholder="e.g. Product Analyst"><span class="err">Required.</span></div>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Date applied</label><input id="jt-date" type="date"></div>
+        <div class="field"><label>Status</label><select id="jt-status">${JOB_STATUS.map(s=>`<option>${s}</option>`).join('')}</select></div>
+      </div>
+      ${U.cvVersions.length?`<div class="field"><label>Link a tailored CV (optional)</label><select id="jt-cv"><option value="">None</option>${U.cvVersions.map(v=>`<option value="${v.id}">${v.name} · ${new Date(v.created).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}</option>`).join('')}</select></div>`:''}
+      <button class="btn btn-primary btn-block" onclick="saveJob()">Save application</button>
+    </div>`);
+}
+function saveJob(){
+  const co=val('jt-company').trim(),rl=val('jt-role').trim();let ok=true;
+  if(!co){bad('jt-co');ok=false;}else good('jt-co'); if(!rl){bad('jt-rl');ok=false;}else good('jt-rl');
+  if(!ok)return;
+  const cvSel=document.getElementById('jt-cv');
+  U.trackers.jobs.push({id:nid(),company:co,role:rl,date:val('jt-date'),status:val('jt-status'),cv:cvSel&&cvSel.value?cvSel.value:null});
+  addActivity('tracker','Logged application: '+rl+' at '+co);
+  closeModal();syncChrome();toast('Application saved');
+  if(currentView==='tracker'){trkTab='jobs';paintTracker();}else if(currentView==='dashboard')renderDashboard(document.getElementById('view'));
+}
+function openCert(){
+  showModal(`<div class="modal-head"><div><h2>Add certification</h2><div class="sub">Completed items auto-sync to your CV.</div></div>${xBtn()}</div>
+    <div class="modal-body">
+      <div class="field" id="ct-n"><label>Certification / course</label><input id="ct-name" placeholder="e.g. Google Data Analytics"><span class="err">Required.</span></div>
+      <div class="row2"><div class="field"><label>Provider</label><input id="ct-prov" placeholder="e.g. Coursera"></div>
+      <div class="field"><label>Status</label><select id="ct-status"><option>Planned</option><option>In Progress</option><option selected>Completed</option></select></div></div>
+      <button class="btn btn-primary btn-block" onclick="saveCert()">Save</button></div>`);
+}
+function saveCert(){const n=val('ct-name').trim();if(!n){bad('ct-n');return;}U.trackers.certs.push({id:nid(),name:n,provider:val('ct-prov'),status:val('ct-status')});addActivity('cert','Added certification: '+n);closeModal();syncChrome();toast('Certification added'+(val('ct-status')==='Completed'?' & synced to CV':''));if(currentView==='tracker'){trkTab='certs';paintTracker();}}
+function openLearningItem(){
+  showModal(`<div class="modal-head"><div><h2>Add learning item</h2></div>${xBtn()}</div>
+    <div class="modal-body"><div class="field" id="ln-n"><label>Book / course / skill</label><input id="ln-name" placeholder="e.g. Advanced SQL"><span class="err">Required.</span></div>
+    <div class="row2"><div class="field"><label>Source</label><input id="ln-prov" placeholder="e.g. Udemy"></div>
+    <div class="field"><label>Status</label><select id="ln-status"><option>In Progress</option><option>Completed</option></select></div></div>
+    <button class="btn btn-primary btn-block" onclick="saveLearning()">Save</button></div>`);
+}
+function saveLearning(){const n=val('ln-name').trim();if(!n){bad('ln-n');return;}U.trackers.learning.push({id:nid(),name:n,provider:val('ln-prov'),status:val('ln-status')});closeModal();syncChrome();toast('Learning item added');if(currentView==='tracker'){trkTab='learning';paintTracker();}}
+function openInterview(){
+  showModal(`<div class="modal-head"><div><h2>Add interview</h2></div>${xBtn()}</div>
+    <div class="modal-body"><div class="row2"><div class="field" id="iv-co"><label>Company</label><input id="iv-company" placeholder="Company"><span class="err">Required.</span></div>
+    <div class="field" id="iv-rl"><label>Role</label><input id="iv-role" placeholder="Role"><span class="err">Required.</span></div></div>
+    <div class="row2"><div class="field"><label>Date &amp; time</label><input id="iv-date" type="datetime-local"></div>
+    <div class="field"><label>Mode</label><select id="iv-mode"><option>Virtual</option><option>In-person</option></select></div></div>
+    <div class="field"><label>Stage</label><input id="iv-stage" placeholder="e.g. Technical round"></div>
+    <button class="btn btn-primary btn-block" onclick="saveInterview()">Save</button></div>`);
+}
+function saveInterview(){const co=val('iv-company').trim(),rl=val('iv-role').trim();let ok=true;if(!co){bad('iv-co');ok=false;}else good('iv-co');if(!rl){bad('iv-rl');ok=false;}else good('iv-rl');if(!ok)return;const d=val('iv-date');U.trackers.interviews.push({id:nid(),company:co,role:rl,date:d?new Date(d).toLocaleString('en-GB',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):'',mode:val('iv-mode'),stage:val('iv-stage')});addActivity('tracker','Scheduled interview: '+rl+' at '+co);closeModal();syncChrome();toast('Interview added');if(currentView==='tracker'){trkTab='interviews';paintTracker();}}
+function addTodo(){const t=prompt('New task:');if(!t)return;U.trackers.todos.push({id:nid(),text:t,done:false});paintTracker();persist();}
+function toggleTodo(id){const t=U.trackers.todos.find(x=>x.id===id);t.done=!t.done;paintTracker();persist();}
+function delTodo(id){U.trackers.todos=U.trackers.todos.filter(x=>x.id!==id);paintTracker();persist();}
+function todoToJournal(id){const t=U.trackers.todos.find(x=>x.id===id);openAchievement();setTimeout(()=>{const r=document.getElementById('acRaw');if(r){r.value=t.text;}},60);}
+
+/* =========================================================================
+   VIEW: INSIGHTS
+   ========================================================================= */
+function renderInsights(el){
+  const months=lastMonths(6);
+  const jByMonth=months.map(m=>U.journal.filter(e=>sameMonth(e.created,m.d)).length);
+  const maxJ=Math.max(1,...jByMonth);
+  const statusCounts=JOB_STATUS.map(s=>U.trackers.jobs.filter(j=>j.status===s).length);
+  const nudges=buildNudges();
+  el.innerHTML=`
+    <div class="page-head"><h1>Insights</h1><p>Your career activity at a glance, with nudges to keep momentum.</p></div>
+    <div id="nudges">${nudges.map(n=>`<div class="nudge"><div class="ic">${ic(n.ic)}</div><div><p><b>${n.title}</b></p><small>${n.body}</small></div></div>`).join('')}</div>
+    <div class="grid-2" style="margin-top:4px">
+      <div class="chart-card">
+        <h3>Journal activity — last 6 months</h3>
+        <div class="bars">${months.map((m,i)=>`<div class="bar-col"><span class="bar-val">${jByMonth[i]||''}</span><div class="bar" style="height:${jByMonth[i]/maxJ*100}%"></div><span class="bar-lbl">${m.l}</span></div>`).join('')}</div>
+      </div>
+      <div class="chart-card">
+        <h3>Applications by status</h3>
+        ${U.trackers.jobs.length?donut(statusCounts):`<p style="font-size:.86rem;color:var(--sub)">No applications logged yet.</p>`}
+      </div>
+    </div>
+    <div class="chart-card" style="margin-top:16px">
+      <h3>Snapshot</h3>
+      <div class="stat-grid" style="margin-top:0">
+        <div class="stat"><div class="num">${U.journal.length}</div><div class="lbl">Total achievements</div></div>
+        <div class="stat"><div class="num">${U.trackers.certs.filter(c=>c.status==='Completed').length}</div><div class="lbl">Certs completed</div></div>
+        <div class="stat"><div class="num">${U.trackers.jobs.length}</div><div class="lbl">Applications</div></div>
+        <div class="stat"><div class="num">${U.cvGenerated}</div><div class="lbl">CVs generated</div></div>
+      </div>
+    </div>`;
+}
+function buildNudges(){
+  const n=[];
+  const thisWeek=U.journal.filter(e=>Date.now()-e.created<7*864e5).length;
+  if(thisWeek===0)n.push({ic:'spark',title:'No achievements logged this week',body:'Add one to keep your CV current and your score climbing.'});
+  else n.push({ic:'fire',title:`${thisWeek} achievement${thisWeek>1?'s':''} logged this week`,body:'Nice momentum — consistency is what builds a standout CV.'});
+  const hasLeadership=U.journal.some(e=>/lead|led|manag|mentor|coordinat/i.test(e.aiText));
+  if(!hasLeadership)n.push({ic:'bulb',title:'Few leadership entries',body:'Try the mini-course “Taking Initiative at Work” to surface leadership stories.'});
+  if(U.cvGenerated===0&&U.journal.length>=2)n.push({ic:'cvgen',title:'You are ready to generate a CV',body:'Head to CV Vault and turn your journal into a polished document.'});
+  return n;
+}
+function donut(counts){
+  const total=counts.reduce((a,b)=>a+b,0)||1;
+  const colors=['#0A66C2','#E7A33E','#057642','#B24020','#7d7d7d'];
+  let acc=0;const segs=counts.map((c,i)=>{const frac=c/total;const seg=`${colors[i]} ${acc*100}% ${(acc+frac)*100}%`;acc+=frac;return seg;});
+  return `<div class="donut-wrap">
+    <div style="width:130px;height:130px;border-radius:50%;background:conic-gradient(${segs.join(',')})" role="img" aria-label="Applications by status">
+      <div style="width:70px;height:70px;background:#fff;border-radius:50%;position:relative;top:30px;left:30px;display:grid;place-items:center;font-weight:800">${total}</div></div>
+    <div class="legend">${JOB_STATUS.map((s,i)=>`<div class="li"><span class="sw" style="background:${colors[i]}"></span>${s} · ${counts[i]}</div>`).join('')}</div>
+  </div>`;
+}
+function lastMonths(n){const out=[];const now=new Date();for(let i=n-1;i>=0;i--){const d=new Date(now.getFullYear(),now.getMonth()-i,1);out.push({d,l:d.toLocaleDateString('en-GB',{month:'short'})});}return out;}
+function sameMonth(ts,d){const x=new Date(ts);return x.getFullYear()===d.getFullYear()&&x.getMonth()===d.getMonth();}
+
+/* =========================================================================
+   VIEW: LEARN (mini courses)
+   ========================================================================= */
+const COURSES=[
+  {t:'How to Communicate Achievements',len:'8 min',p:'Turn everyday work into stories recruiters remember.'},
+  {t:'Taking Initiative at Work',len:'10 min',p:'Spot and seize leadership moments in any role.'},
+  {t:'Professional Networking 101',len:'12 min',p:'Build relationships that open doors — the right way.'},
+  {t:'Writing a Standout CV Summary',len:'6 min',p:'Craft a three-line summary that earns a second read.'},
+  {t:'Negotiating Your Salary',len:'14 min',p:'Ask with confidence and back it up with your record.'},
+  {t:'Acing Virtual Interviews',len:'11 min',p:'Setup, structure and STAR answers that land.'},
+];
+function renderLearn(el){
+  el.innerHTML=`
+    <div class="page-head"><h1>Learn</h1><p>Short, targeted mini-courses. Completed ones log to your Learning tracker.</p></div>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px">
+      ${COURSES.map((c,i)=>`<div class="course"><div class="course-top">${ic('cap')}<span class="len">${c.len}</span></div>
+        <div class="course-b"><h4>${c.t}</h4><p>${c.p}</p><button class="btn btn-sec btn-sm btn-block" onclick="startCourse(${i})">${ic('play')} Start</button></div></div>`).join('')}
+    </div>`;
+}
+function startCourse(i){const c=COURSES[i];U.trackers.learning.push({id:nid(),name:c.t,provider:'Career Vault',status:'Completed'});addActivity('learn','Completed mini-course: '+c.t);syncChrome();toast('Course completed & logged to Learning ✔');}
+
+/* =========================================================================
+   VIEW: COMMUNITY
+   ========================================================================= */
+function renderCommunity(el){
+  const challenges=[
+    {ic:'fire',t:'Log 5 achievements this week',done:Math.min(U.journal.filter(e=>Date.now()-e.created<7*864e5).length,5),goal:5},
+    {ic:'award',t:'Complete 1 certification this month',done:Math.min(U.trackers.certs.filter(c=>c.status==='Completed').length,1),goal:1},
+    {ic:'brief',t:'Apply to 3 roles this week',done:Math.min(U.trackers.jobs.length,3),goal:3},
+  ];
+  el.innerHTML=`
+    <div class="page-head"><h1>Community</h1><p>Invite peers, take on challenges, and grow together.</p></div>
+    <div class="grid-2" style="margin-top:0">
+      <div class="panel">
+        <div class="panel-head"><h3>Weekly challenges</h3></div>
+        <div class="panel-body">
+          ${challenges.map(c=>`<div class="challenge"><div class="ic">${ic(c.ic)}</div>
+            <div style="flex:1"><b style="font-size:.9rem">${c.t}</b>
+              <div class="progress-bar"><i style="width:${c.done/c.goal*100}%"></i></div>
+              <small style="font-size:.74rem;color:var(--sub)">${c.done}/${c.goal} done</small></div>
+            ${c.done>=c.goal?'<span class="chip g">Complete</span>':''}</div>`).join('')}
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h3>Invite &amp; earn</h3></div>
+        <div class="panel-body">
+          <p style="font-size:.86rem;color:var(--sub);margin-bottom:10px">Share your referral code — track who joins.</p>
+          <div class="ref-box"><span class="ref-code">${U.referral}</span><button class="btn btn-plain btn-sm" onclick="copyRef()">${ic('copy')} Copy</button></div>
+          <div style="display:flex;justify-content:space-between;margin-top:14px;font-size:.85rem">
+            <span style="color:var(--sub)">People invited</span><b>${U.invited||0}</b></div>
+          <button class="btn btn-primary btn-block" style="margin-top:12px" onclick="U.invited=(U.invited||0)+1;persist();renderCommunity(document.getElementById('view'));toast('Invite link shared')">${ic('users')} Share invite link</button>
+        </div>
+      </div>
+    </div>
+    <div class="panel" style="margin-top:16px">
+      <div class="panel-head"><h3>Activity from your network</h3></div>
+      <div class="panel-body">
+        ${['Chidi completed “Google Data Analytics” 🎓','Amara logged a Monthly Milestone','Kwame applied to 4 roles this week'].map(t=>`<div class="activity"><div class="ic" style="${iconBg('blue')}">${ic('users')}</div><div class="t">${t}<small>demo feed · privacy-controlled in the real build</small></div></div>`).join('')}
+      </div>
+    </div>`;
+}
+function copyRef(){try{navigator.clipboard&&navigator.clipboard.writeText(U.referral);}catch(e){}toast('Referral code copied');}
+
+/* =========================================================================
+   VIEW: PROFILE
+   ========================================================================= */
+function renderProfile(el){
+  const comp=careerScore();
+  el.innerHTML=`
+    <div class="pf-hero">
+      <div class="pf-banner"></div>
+      <div class="pf-body">
+        <div class="pf-row">
+          <div class="avatar lg">${initials(U.name)}</div>
+          <div class="grow">
+            <div class="pf-name">${U.name}</div>
+            <div class="pf-head">${U.profession||'Add your profession'}${U.industry?(' · '+U.industry):''}</div>
+            <div class="pf-meta">
+              ${U.country?`<span>${ic('loc')} ${U.country}</span>`:''}
+              <span>${ic('brief')} ${U.experiences.length} roles</span>
+              <span>${ic('spark')} ${U.journal.length} achievements</span>
+            </div>
+          </div>
+          <button class="btn btn-plain" onclick="openEditProfile()">${ic('edit')} Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid-2" style="align-items:start">
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <div class="panel-head"><h3>About</h3></div>
+          <div class="panel-body">
+            <p style="font-size:.9rem;color:${U.bio?'var(--ink)':'var(--sub)'}">${U.bio||'Add a short professional summary — or let AI draft one from your achievements.'}</p>
+            <button class="btn btn-sec btn-sm" style="margin-top:10px" onclick="genBio()">${ic('spark')} ${U.bio?'Regenerate with AI':'Generate with AI'}</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-head"><h3>Experience</h3><button class="btn btn-ghost btn-sm" onclick="openAddRole()">${ic('spark')} Add</button></div>
+          <div class="panel-body">
+            ${U.experiences.length?U.experiences.map(x=>`<div class="exp"><div class="ic">${initials(x.company)}</div>
+              <div style="flex:1"><b>${x.title}</b><div class="co">${x.company}</div><small>${fmtRange(x)||'Dates not set'} · ${U.journal.filter(j=>j.expId===x.id).length} achievements</small></div>
+              <button class="btn btn-ghost btn-sm" onclick="delRole(${x.id})">${ic('trash')}</button></div>`).join(''):'<p style="font-size:.86rem;color:var(--sub)">No experience added yet.</p>'}
+          </div>
+        </div>
+      </div>
+
+      <div>
+        <div class="panel" style="margin-bottom:16px">
+          <div class="panel-head"><h3>Profile completion</h3></div>
+          <div class="panel-body">
+            <div style="display:flex;align-items:center;gap:14px">
+              <div class="ring" style="--v:${comp};width:56px;height:56px"><i style="width:42px;height:42px;font-size:.9rem">${comp}%</i></div>
+              <div style="font-size:.85rem;color:var(--sub)">${scoreHint()}</div>
+            </div>
+          </div>
+        </div>
+        <div class="panel" style="margin-bottom:16px">
+          <div class="panel-head"><h3>Skills</h3><button class="btn btn-ghost btn-sm" onclick="addSkill()">${ic('spark')} Add</button></div>
+          <div class="panel-body">
+            ${U.skills.length?U.skills.map((s,i)=>`<span class="skill">${s}<button onclick="delSkill(${i})">${ic('x')}</button></span>`).join(''):'<p style="font-size:.86rem;color:var(--sub)">Add skills — they appear on your CV.</p>'}
+            ${U.journal.length&&U.skills.length<3?`<div style="margin-top:10px"><small style="color:var(--sub);font-size:.78rem">Suggested: </small>${suggestSkills().map(s=>`<button class="chip" style="cursor:pointer;margin:2px" onclick="U.skills.push('${s}');persist();renderProfile(document.getElementById('view'))">+ ${s}</button>`).join('')}</div>`:''}
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-body" style="display:flex;align-items:center;gap:12px;padding:16px">
+            <div style="flex:1"><b style="font-size:.9rem">Discoverable in community</b><div style="font-size:.8rem;color:var(--sub)">Let others find your public profile.</div></div>
+            <button class="toggle ${U.public?'on':''}" onclick="U.public=!U.public;persist();renderProfile(document.getElementById('view'))" aria-label="Toggle public profile"><i></i></button>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+function suggestSkills(){
+  const pool=['Stakeholder Management','Communication','Problem Solving','Project Management','Data Analysis','Leadership','Time Management'];
+  return pool.filter(s=>!U.skills.includes(s)).slice(0,4);
+}
+function genBio(){
+  showModal(`<div class="modal-body" style="text-align:center;padding:36px"><div class="spin"></div><p style="color:var(--sub)">Drafting your summary from your achievements…</p></div>`);
+  setTimeout(()=>{U.bio=autoSummary();closeModal();renderProfile(document.getElementById('view'));toast('AI summary added — edit any time');},700);
+}
+function addSkill(){const s=prompt('Add a skill:');if(s&&s.trim()){U.skills.push(s.trim());persist();renderProfile(document.getElementById('view'));}}
+function delSkill(i){U.skills.splice(i,1);persist();renderProfile(document.getElementById('view'));}
+function openAddRole(){
+  showModal(`<div class="modal-head"><div><h2>Add experience</h2></div>${xBtn()}</div>
+    <div class="modal-body">
+      <div class="row2"><div class="field" id="r-t"><label>Job title</label><input id="r-title" placeholder="e.g. Product Analyst"><span class="err">Required.</span></div>
+      <div class="field" id="r-c"><label>Company</label><input id="r-company" placeholder="e.g. Paystack"><span class="err">Required.</span></div></div>
+      <div class="row2"><div class="field"><label>Start (e.g. Jan 2023)</label><input id="r-start" placeholder="Jan 2023"></div>
+      <div class="field"><label>End</label><input id="r-end" placeholder="Present"></div></div>
+      <button class="btn btn-primary btn-block" onclick="saveRole()">Add role</button></div>`);
+}
+function saveRole(){const t=val('r-title').trim(),c=val('r-company').trim();let ok=true;if(!t){bad('r-t');ok=false;}else good('r-t');if(!c){bad('r-c');ok=false;}else good('r-c');if(!ok)return;const end=val('r-end').trim();U.experiences.push({id:nid(),title:t,company:c,start:val('r-start').trim(),end:/present/i.test(end)?'':end,current:!end||/present/i.test(end)});addActivity('profile','Added experience: '+t+' at '+c);closeModal();syncChrome();renderProfile(document.getElementById('view'));toast('Experience added');}
+function delRole(id){if(U.journal.some(j=>j.expId===id)){if(!confirm('This role has journal entries linked. Remove anyway?'))return;}U.experiences=U.experiences.filter(x=>x.id!==id);syncChrome();renderProfile(document.getElementById('view'));toast('Role removed');}
+function openEditProfile(){
+  showModal(`<div class="modal-head"><div><h2>Edit profile</h2></div>${xBtn()}</div>
+    <div class="modal-body">
+      <div class="field"><label>Full name</label><input id="ep-name" value="${U.name}"></div>
+      <div class="row2"><div class="field"><label>Profession</label><input id="ep-prof" value="${U.profession||''}"></div>
+      <div class="field"><label>Industry</label><input id="ep-ind" value="${U.industry||''}"></div></div>
+      <div class="field"><label>Country</label><input id="ep-country" value="${U.country||''}"></div>
+      <div class="field"><label>Summary bio (max ~150 words)</label><textarea id="ep-bio" rows="4">${U.bio||''}</textarea></div>
+      <button class="btn btn-primary btn-block" onclick="saveProfile()">Save profile</button></div>`);
+}
+function saveProfile(){U.name=val('ep-name')||U.name;U.profession=val('ep-prof');U.industry=val('ep-ind');U.country=val('ep-country');U.bio=val('ep-bio');closeModal();syncChrome();renderProfile(document.getElementById('view'));toast('Profile updated');}
+
+/* =========================================================================
+   MODAL / TOAST INFRA
+   ========================================================================= */
+const overlay=document.getElementById('overlay'),modal=document.getElementById('modal');
+function showModal(html,wide){modal.className='modal'+(wide?' wide':'');modal.innerHTML=html;overlay.classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(){overlay.classList.remove('open');document.body.style.overflow='';}
+function xBtn(){return `<button class="mx" onclick="closeModal()" aria-label="Close">${ic('x')}</button>`;}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+function toast(msg){const t=document.createElement('div');t.className='toast';t.innerHTML=`${ic('check')}<span>${msg}</span>`;document.getElementById('toasts').appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transform='translateY(10px)';t.style.transition='.3s';setTimeout(()=>t.remove(),300);},2600);}
+
+/* =========================================================================
+   DEMO ACCOUNT
+   ========================================================================= */
+function tryDemo(){
+  U=blankUser('Tobi Adeyemi','tobi.demo@careervault.app');
+  U.profession='Product Analyst';U.industry='Fintech';U.country='Nigeria';
+  U.bio='Product Analyst in fintech who turns messy data into decisions. Focused on measurable impact across activation, retention and revenue.';
+  U.skills=['Product Analytics','SQL','Stakeholder Management','A/B Testing','Roadmapping'];
+  const e1={id:nid(),company:'Paystack',title:'Product Analyst',start:'Jan 2023',end:'',current:true};
+  const e2={id:nid(),company:'Andela',title:'Associate Product Manager',start:'Mar 2021',end:'Dec 2022',current:false};
+  U.experiences=[e1,e2];
+  const seed=[
+    {exp:e1.id,cat:'Project',raw:'led cross-functional work on the new checkout flow',q:{team:'8',percent:'22',percentLabel:'increased checkout conversion',duration:'6 weeks',_cat:'Project'}},
+    {exp:e1.id,cat:'Weekly Achievement',raw:'built a retention dashboard the whole team now uses',q:{number:'40',numberLabel:'weekly active users tracked',_cat:'Weekly Achievement'}},
+    {exp:e1.id,cat:'Monthly Milestone',raw:'ran A/B tests on onboarding that cut drop-off',q:{percent:'15',percentLabel:'reduced onboarding drop-off',_cat:'Monthly Milestone'}},
+    {exp:e2.id,cat:'Project',raw:'managed delivery of a partner integration',q:{team:'5',revenue:'₦3.2M',duration:'3 months',_cat:'Project'}},
+    {exp:e2.id,cat:'Training',raw:'completed product analytics certification and applied it to reporting',q:{_cat:'Training'}},
+  ];
+  seed.forEach((s,i)=>{U.journal.push({id:nid(),expId:s.exp,category:s.cat,rawText:s.raw,aiText:articulate(s.raw,s.q,U.profession),quantifiers:s.q,pinned:i===0,created:Date.now()-i*4*864e5});});
+  U.trackers.jobs=[
+    {id:nid(),company:'Kudi Financial',role:'Senior Product Analyst',date:'',status:'Interview Scheduled',cv:null},
+    {id:nid(),company:'Flutterwave',role:'Product Analyst',date:'',status:'Applied',cv:null},
+    {id:nid(),company:'Piggyvest',role:'Data Analyst',date:'',status:'Offer Received',cv:null},
+    {id:nid(),company:'Moniepoint',role:'Product Analyst',date:'',status:'Rejected',cv:null},
+  ];
+  U.trackers.certs=[
+    {id:nid(),name:'Google Data Analytics',provider:'Coursera',status:'Completed'},
+    {id:nid(),name:'Product Analytics Micro-cert',provider:'Amplitude',status:'In Progress'},
+  ];
+  U.trackers.learning=[{id:nid(),name:'Advanced SQL',provider:'Mode',status:'In Progress'}];
+  U.trackers.interviews=[{id:nid(),company:'Kudi Financial',role:'Senior Product Analyst',date:'Fri, 22 Aug, 15:00',mode:'Virtual',stage:'Hiring manager'}];
+  U.trackers.todos=[{id:nid(),text:'Tailor CV for Kudi Financial role',done:false},{id:nid(),text:'Follow up with Flutterwave recruiter',done:false},{id:nid(),text:'Finish A/B test write-up',done:true}];
+  U.invited=3;
+  addActivity('journal','Logged: “'+truncate(U.journal[0].aiText,50)+'”');
+  addActivity('tracker','Logged application: Product Analyst at Flutterwave');
+  addActivity('cert','Added certification: Google Data Analytics');
+  enterApp('dashboard');
+  toast('Exploring a demo account — everything is editable');
+}
+
+/* boot */
+paintStaticIcons();
+const _sess=loadState();
+if(_sess&&usersMap[_sess]){U=usersMap[_sess];enterApp('dashboard');}
+else setAuthTab('signup');
+</script>
+</body>
+</html>
